@@ -44,9 +44,13 @@
           class="brand"
           aria-label="Ung Kheang Heang Dental Clinic home"
         >
-          <span class="brand-icon" aria-hidden="true"
-            ><i class="fa-solid fa-tooth"></i
-          ></span>
+          <img
+            class="brand-logo"
+            src="images/logo.png"
+            alt=""
+            width="240"
+            height="240"
+          />
           <span class="brand-text">
             <strong>Ung Kheang Heang</strong>
             <small>Dental Clinic</small>
@@ -332,7 +336,7 @@
           <div class="doctors-grid">
             <article class="doctor-card reveal">
               <div class="doctor-avatar" aria-hidden="true">NU</div>
-              <h3>Dr. Nory Ung</h3>
+              <h3 data-i18n="doctorNoryName">Dr. Nory Ung</h3>
               <p class="doctor-role" data-i18n="generalDentist">
                 General Dentist
               </p>
@@ -492,7 +496,9 @@
                   <option value="" data-i18n="selectDoctor">
                     Select doctor
                   </option>
-                  <option value="Dr. Nory Ung">Dr. Nory Ung</option>
+                  <option value="Dr. Nory Ung" data-i18n="doctorNoryName">
+                    Dr. Nory Ung
+                  </option>
                   <option value="Dr. Muy Chem">Dr. Muy Chem</option>
                   <option value="No preference" data-i18n="noPreference">
                     No preference
@@ -588,10 +594,6 @@
           <div class="section-heading left reveal">
             <p class="eyebrow" data-i18n="testimonialsEyebrow">Testimonials</p>
             <h2 data-i18n="testimonialsTitle">What patients may say.</h2>
-            <p data-i18n="testimonialsNote">
-              These are sample testimonials. Replace them with real patient
-              reviews before publishing.
-            </p>
           </div>
 
           <div class="testimonial-card reveal">
@@ -599,7 +601,6 @@
               “The clinic was gentle, clean, and very friendly.”
             </p>
             <div>
-              <strong id="testimonialName">Sample Patient</strong>
               <span id="testimonialService">Dental Cleaning</span>
             </div>
             <div class="slider-controls">
@@ -679,17 +680,17 @@
             <ul class="contact-list">
               <li>
                 <strong data-i18n="contactLocationLabel">Location:</strong>
-                <span data-i18n="contactLocation">Phnom Penh, Cambodia</span>
-              </li>
-              <li>
-                <strong data-i18n="contactPhoneLabel">Phone:</strong>
-                <span data-i18n="contactPhone"
-                  >Add clinic phone number here</span
+                <span data-i18n="contactLocation"
+                  >121E0, 182St, Orussey 2, 7 Makara, Phnom Penh</span
                 >
               </li>
               <li>
+                <strong data-i18n="contactPhoneLabel">Phone:</strong>
+                <span data-i18n="contactPhone">011-711-123</span>
+              </li>
+              <li>
                 <strong data-i18n="contactEmailLabel">Email:</strong>
-                <span data-i18n="contactEmail">Add clinic email here</span>
+                <span data-i18n="contactEmail">unora2002@gmail.com</span>
               </li>
               <li>
                 <strong data-i18n="contactHoursLabel">Hours:</strong>
@@ -700,7 +701,7 @@
             </ul>
             <a
               class="button primary"
-              href="https://www.google.com/maps/search/?api=1&query=Phnom%20Penh%20Cambodia"
+              href="https://www.google.com/maps/search/?api=1&query=121E0%2C%20182St%2C%20Orussey%202%2C%207%20Makara%2C%20Phnom%20Penh"
               target="_blank"
               rel="noopener noreferrer"
               data-i18n="directionsButton"

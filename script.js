@@ -44,7 +44,6 @@ const contactForm = document.getElementById("contactForm");
 const contactAlert = document.getElementById("contactAlert");
 const backToTopButton = document.getElementById("backToTop");
 const testimonialText = document.getElementById("testimonialText");
-const testimonialName = document.getElementById("testimonialName");
 const testimonialService = document.getElementById("testimonialService");
 const prevTestimonial = document.getElementById("prevTestimonial");
 const nextTestimonial = document.getElementById("nextTestimonial");
@@ -125,6 +124,7 @@ const translations = {
     doctorsEyebrow: "Meet Our Doctors",
     doctorsTitle: "Experienced care from a small, friendly team.",
     generalDentist: "General Dentist",
+    doctorNoryName: "Dr. Nory Ung",
     doctorNoryText:
       "Focused on preventive care, restorative treatment, and comfortable patient visits.",
     doctorMuyText:
@@ -201,8 +201,6 @@ const translations = {
     // --- Testimonials ---
     testimonialsEyebrow: "Testimonials",
     testimonialsTitle: "What patients may say.",
-    testimonialsNote:
-      "These are sample testimonials. Replace them with real patient reviews before publishing.",
 
     // --- FAQ ---
     faqTitle: "Common questions",
@@ -223,11 +221,11 @@ const translations = {
     // --- Contact ---
     contactEyebrow: "Visit Us",
     contactLocationLabel: "Location:",
-    contactLocation: "Phnom Penh, Cambodia",
+    contactLocation: "121E0, 182St, Orussey 2, 7 Makara, Phnom Penh",
     contactPhoneLabel: "Phone:",
-    contactPhone: "Add clinic phone number here",
+    contactPhone: "011-711-123",
     contactEmailLabel: "Email:",
-    contactEmail: "Add clinic email here",
+    contactEmail: "unora2002@gmail.com",
     contactHoursLabel: "Hours:",
     contactHours: "Monday–Saturday, 8:00 AM – 6:00 PM",
     directionsButton: "Get Directions",
@@ -296,6 +294,7 @@ const translations = {
     doctorsEyebrow: "ជួបវេជ្ជបណ្ឌិតរបស់យើង",
     doctorsTitle: "ការថែទាំប្រកបដោយបទពិសោធន៍ពីក្រុមតូច និងរួសរាយ។",
     generalDentist: "វេជ្ជបណ្ឌិតធ្មេញទូទៅ",
+    doctorNoryName: "Dr. Nory Ung",
     doctorNoryText:
       "ផ្តោតលើការថែទាំការពារ ការព្យាបាលជួសជុល និងការពិនិត្យប្រកបដោយផាសុកភាព។",
     doctorMuyText:
@@ -366,7 +365,6 @@ const translations = {
     // --- Testimonials ---
     testimonialsEyebrow: "មតិអ្នកជំងឺ",
     testimonialsTitle: "អ្វីដែលអ្នកជំងឺអាចនិយាយ។",
-    testimonialsNote: "នេះជាមតិគំរូ។ សូមជំនួសដោយមតិពិតមុនពេលផ្សព្វផ្សាយ។",
 
     // --- FAQ ---
     faqTitle: "សំណួរដែលគេសួរញឹកញាប់",
@@ -386,11 +384,11 @@ const translations = {
     // --- Contact ---
     contactEyebrow: "មកជួបយើង",
     contactLocationLabel: "ទីតាំង:",
-    contactLocation: "រាជធានីភ្នំពេញ កម្ពុជា",
+    contactLocation: "១២១ E0, ផ្លូវ ១៨២, ក្រុងភ្នំពេញ, សង្កាត់អូឬស្សី២, ខណ្ឌ៧មករា",
     contactPhoneLabel: "ទូរស័ព្ទ:",
-    contactPhone: "បញ្ចូលលេខទូរស័ព្ទគ្លីនិកនៅទីនេះ",
+    contactPhone: "011-711-123",
     contactEmailLabel: "អ៊ីមែល:",
-    contactEmail: "បញ្ចូលអ៊ីមែលគ្លីនិកនៅទីនេះ",
+    contactEmail: "unora2002@gmail.com",
     contactHoursLabel: "ម៉ោង:",
     contactHours: "ច័ន្ទ–សៅរ៍, 8:00 ព្រឹក – 6:00 ល្ងាច",
     directionsButton: "បើកផែនទី",
@@ -458,17 +456,14 @@ let currentTestimonialIndex = 0;
 const testimonials = [
   {
     text: "“The clinic was gentle, clean, and very friendly.”",
-    name: "Sample Patient",
     service: "Dental Cleaning",
   },
   {
     text: "“The doctor explained everything clearly before treatment.”",
-    name: "Sample Patient",
     service: "Tooth Filling",
   },
   {
     text: "“Booking was easy and the visit felt comfortable.”",
-    name: "Sample Patient",
     service: "Dental Checkup",
   },
 ];
@@ -925,7 +920,6 @@ function handleContactSubmit(event) {
 function renderTestimonial() {
   const testimonial = testimonials[currentTestimonialIndex];
   testimonialText.textContent = testimonial.text;
-  testimonialName.textContent = testimonial.name;
   testimonialService.textContent = testimonial.service;
 }
 

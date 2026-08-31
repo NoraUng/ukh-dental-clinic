@@ -99,7 +99,37 @@ button {
   ---------------------------------------------------------------------------- */
 body.khmer-mode {
   font-family: "Noto Sans Khmer", "Inter", Arial, sans-serif;
-  line-height: 1.8;
+  line-height: 2.1;
+}
+
+/* Headings and other large/bold text set their own tight line-height
+   further down (as low as 0.96 for the hero title) for a bold Latin
+   display look — those values are too cramped for Khmer script, whose
+   stacked subscript consonants and diacritics need more vertical room
+   per line, so they're relaxed here specifically for Khmer mode. */
+body.khmer-mode .hero-content h1,
+body.khmer-mode .section-heading h2,
+body.khmer-mode .booking-info h2 {
+  line-height: 1.32;
+}
+
+body.khmer-mode .main-card h2 {
+  line-height: 1.24;
+}
+
+body.khmer-mode .testimonial-card > p,
+body.khmer-mode .floating-card strong {
+  line-height: 1.4;
+}
+
+/* .eyebrow (the small label above section titles, e.g. "Our Services")
+   doesn't set its own line-height, so in Khmer mode it was inheriting the
+   full body line-height of 2.1 — which for a single short line of small
+   text shows up as a large empty gap above it, since it's usually the
+   first element in its container. */
+body.khmer-mode .eyebrow {
+  line-height: 1.3;
+  margin-top: -1.2em;
 }
 
 /* ----------------------------------------------------------------------------
@@ -391,16 +421,10 @@ textarea:focus {
   min-width: max-content;
 }
 
-.brand-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 16px;
-  background: linear-gradient(145deg, var(--primary-soft), #ffffff);
-  box-shadow: var(--small-shadow);
-  color: var(--primary-dark);
-  font-size: 1.5rem;
+.brand-logo {
+  display: block;
+  width: 68px;
+  height: 68px;
 }
 
 .brand-text strong,
