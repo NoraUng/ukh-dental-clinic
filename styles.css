@@ -30,20 +30,20 @@
   whole site without touching individual component rules below.
   ---------------------------------------------------------------------------- */
 :root {
-  --primary: #087ea4;
-  --primary-dark: #075f7d;
-  --primary-soft: #e4f7fc;
-  --secondary: #14b8a6;
-  --accent: #22c55e;
+  --primary: #d6336c;
+  --primary-dark: #a61e4d;
+  --primary-soft: #ffe3ef;
+  --secondary: #f06595;
+  --accent: #ff8fab;
   --danger: #dc2626;
   --danger-soft: #fee2e2;
   --success-soft: #dcfce7;
   --success-dark: #166534;
-  --text: #0f2f3d;
-  --muted: #64748b;
+  --text: #3d1326;
+  --muted: #8a6270;
   --white: #ffffff;
-  --soft: #f8fafc;
-  --border: #dbeafe;
+  --soft: #fdf2f6;
+  --border: #f9c9dc;
   --shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
   --small-shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
   --radius: 24px;
@@ -120,7 +120,7 @@ body.khmer-mode {
   background:
     radial-gradient(
       circle at top right,
-      rgba(20, 184, 166, 0.08),
+      rgba(240, 101, 149, 0.1),
       transparent 32%
     ),
     var(--soft);
@@ -209,7 +209,7 @@ body.khmer-mode {
 .primary {
   background: var(--primary);
   color: var(--white);
-  box-shadow: 0 12px 24px rgba(8, 126, 164, 0.22);
+  box-shadow: 0 12px 24px rgba(214, 51, 108, 0.28);
 }
 
 .primary:hover {
@@ -246,7 +246,7 @@ body.khmer-mode {
 .contact-card,
 .testimonial-card {
   background: var(--white);
-  border: 1px solid rgba(219, 234, 254, 0.95);
+  border: 1px solid rgba(249, 201, 220, 0.95);
   border-radius: var(--radius);
   box-shadow: var(--small-shadow);
 }
@@ -265,7 +265,7 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #d9bcc8;
   border-radius: 15px;
   background: var(--white);
   color: var(--text);
@@ -281,7 +281,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(8, 126, 164, 0.12);
+  box-shadow: 0 0 0 4px rgba(214, 51, 108, 0.18);
 }
 
 .form-group {
@@ -372,7 +372,7 @@ textarea:focus {
   top: 0;
   z-index: 100;
   background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid rgba(219, 234, 254, 0.85);
+  border-bottom: 1px solid rgba(249, 201, 220, 0.85);
   backdrop-filter: blur(16px);
 }
 
@@ -427,7 +427,7 @@ textarea:focus {
 
 .nav-menu a {
   font-weight: 700;
-  color: #1e4150;
+  color: #6b1e3f;
 }
 
 .nav-menu a:hover {
@@ -479,15 +479,15 @@ textarea:focus {
   background:
     radial-gradient(
       circle at 15% 10%,
-      rgba(34, 197, 94, 0.14),
+      rgba(255, 143, 171, 0.16),
       transparent 28%
     ),
     radial-gradient(
       circle at 88% 18%,
-      rgba(8, 126, 164, 0.18),
+      rgba(214, 51, 108, 0.16),
       transparent 30%
     ),
-    linear-gradient(135deg, #ffffff, #effcff 70%);
+    linear-gradient(135deg, #ffffff, #fff0f6 70%);
 }
 
 .hero::after {
@@ -498,7 +498,7 @@ textarea:focus {
   width: 380px;
   height: 380px;
   border-radius: 50%;
-  background: rgba(20, 184, 166, 0.12);
+  background: rgba(240, 101, 149, 0.14);
 }
 
 .hero-grid {
@@ -539,7 +539,7 @@ textarea:focus {
 .hero-stats div {
   min-width: 128px;
   padding: 16px 18px;
-  border: 1px solid rgba(219, 234, 254, 0.92);
+  border: 1px solid rgba(249, 201, 220, 0.92);
   background: rgba(255, 255, 255, 0.82);
   border-radius: 18px;
   box-shadow: var(--small-shadow);
@@ -578,7 +578,7 @@ textarea:focus {
   overflow: hidden;
   min-height: 420px;
   padding: 46px;
-  background: linear-gradient(145deg, #087ea4, #14b8a6);
+  background: linear-gradient(145deg, #a61e4d, #d6336c);
   color: var(--white);
   display: flex;
   flex-direction: column;
@@ -622,7 +622,7 @@ textarea:focus {
   max-width: 330px;
   padding: 18px;
   background: var(--white);
-  border: 1px solid rgba(219, 234, 254, 0.88);
+  border: 1px solid rgba(249, 201, 220, 0.88);
   border-radius: 22px;
   box-shadow: var(--shadow);
 }
@@ -928,7 +928,7 @@ details p {
   15. FOOTER
   ---------------------------------------------------------------------------- */
 .footer {
-  background: #082f49;
+  background: #3d0f26;
   color: var(--white);
   padding: 56px 0 22px;
 }
@@ -946,7 +946,7 @@ details p {
 
 .footer p,
 .footer a {
-  color: #bae6fd;
+  color: #ffd6e8;
 }
 
 .footer a {
