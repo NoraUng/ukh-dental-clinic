@@ -1,6 +1,6 @@
 {
   "name": "ung-kheang-heang-dental-clinic-website",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Front-end + Supabase/Cloudflare backend for Ung Kheang Heang Dental Clinic in Phnom Penh, Cambodia.",
   "main": "index.html",
   "scripts": {
