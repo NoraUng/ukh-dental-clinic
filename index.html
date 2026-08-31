@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ung Kheang Heang Dental Clinic</title>
+    <meta
+      name="description"
+      content="Ung Kheang Heang Dental Clinic in Phnom Penh, Cambodia. Gentle dental cleaning, fillings, whitening, braces consultation, root canal care, and emergency dental visits."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Khmer:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!--
+      Cloudflare Turnstile widget script. `render=explicit` + `onload`
+      means it does NOT auto-render on load — script.js calls
+      turnstile.render() itself once it knows the site key from config.js.
+      `defer` guarantees this runs after config.js/script.js below, since
+      deferred scripts execute (in order) only after the document has
+      finished parsing, which is after those non-deferred scripts have
+      already run.
+    -->
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit"
+      defer
+    ></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar container" aria-label="Main navigation">
+        <a
+          href="#home"
+          class="brand"
+          aria-label="Ung Kheang Heang Dental Clinic home"
+        >
+          <span class="brand-icon" aria-hidden="true">🦷</span>
+          <span class="brand-text">
+            <strong>Ung Kheang Heang</strong>
+            <small>Dental Clinic</small>
+          </span>
+        </a>
+
+        <button
+          class="menu-button"
+          id="menuButton"
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu" id="navMenu">
+          <a href="#home" data-i18n="navHome">Home</a>
+          <a href="#services" data-i18n="navServices">Services</a>
+          <a href="#doctors" data-i18n="navDoctors">Doctors</a>
+          <a href="#booking" data-i18n="navBooking">Book</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+          <button class="language-button" id="languageButton" type="button">
+            ភាសាខ្មែរ
+          </button>
+          <a href="#booking" class="nav-cta" data-i18n="navCTA"
+            >Book Appointment</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="container hero-grid">
+          <div class="hero-content reveal">
+            <p class="eyebrow" data-i18n="heroEyebrow">
+              Trusted dental care in Phnom Penh, Cambodia
+            </p>
+            <h1 data-i18n="heroTitle">
+              Gentle dental care for confident smiles.
+            </h1>
+            <p class="hero-description" data-i18n="heroDescription">
+              Welcome to Ung Kheang Heang Dental Clinic. We provide dental
+              cleaning, tooth filling, teeth whitening, braces consultation,
+              root canal care, and emergency dental visits.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#booking" class="button primary" data-i18n="heroPrimary"
+                >Book an Appointment</a
+              >
+              <a
+                href="#services"
+                class="button secondary"
+                data-i18n="heroSecondary"
+                >Explore Services</a
+              >
+            </div>
+
+            <div class="hero-stats" aria-label="Clinic highlights">
+              <div>
+                <strong>2</strong>
+                <span data-i18n="statDoctors">Doctors</span>
+              </div>
+              <div>
+                <strong>6+</strong>
+                <span data-i18n="statServices">Services</span>
+              </div>
+              <div>
+                <strong>PP</strong>
+                <span data-i18n="statLocation">Phnom Penh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-card main-card">
+            <div class="card-shine"></div>
+            <span class="large-tooth" aria-hidden="true">🦷</span>
+            <h2 data-i18n="heroCardTitle">Smile Care</h2>
+            <p data-i18n="heroCardText">
+              Modern, friendly, and family-focused dental treatment.
+            </p>
+          </div>
+
+          <div class="floating-card hours-card">
+            <span aria-hidden="true">⏰</span>
+            <div>
+              <p data-i18n="openHours">Open Hours</p>
+              <strong data-i18n="openHoursTime"
+                >Mon–Sat: 8:00 AM – 6:00 PM</strong
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow" data-i18n="servicesEyebrow">Our Services</p>
+            <h2 data-i18n="servicesTitle">Dental care for every smile.</h2>
+            <p data-i18n="servicesDescription">
+              Filter by category or click “Book this service” to automatically
+              select it in the appointment form.
+            </p>
+          </div>
+
+          <div class="filter-bar reveal" aria-label="Service filters">
+            <button
+              class="filter-button active"
+              type="button"
+              data-filter="all"
+              data-i18n="filterAll"
+            >
+              All
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="preventive"
+              data-i18n="filterPreventive"
+            >
+              Preventive
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="restorative"
+              data-i18n="filterRestorative"
+            >
+              Restorative
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="cosmetic"
+              data-i18n="filterCosmetic"
+            >
+              Cosmetic
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-filter="emergency"
+              data-i18n="filterEmergency"
+            >
+              Emergency
+            </button>
+          </div>
+
+          <div class="services-grid">
+            <article class="service-card reveal" data-category="preventive">
+              <span class="service-icon" aria-hidden="true">🪥</span>
+              <h3 data-i18n="serviceCleaningTitle">
+                Dental Cleaning & Checkup
+              </h3>
+              <p data-i18n="serviceCleaningText">
+                Routine exam, tartar removal, polishing, and dental advice.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Dental Cleaning & Checkup"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+
+            <article class="service-card reveal" data-category="restorative">
+              <span class="service-icon" aria-hidden="true">✨</span>
+              <h3 data-i18n="serviceFillingTitle">Tooth Filling</h3>
+              <p data-i18n="serviceFillingText">
+                Treatment for cavities using tooth-colored filling material.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Tooth Filling"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+
+            <article class="service-card reveal" data-category="cosmetic">
+              <span class="service-icon" aria-hidden="true">😁</span>
+              <h3 data-i18n="serviceWhiteningTitle">Teeth Whitening</h3>
+              <p data-i18n="serviceWhiteningText">
+                Whitening options to help improve the brightness of your smile.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Teeth Whitening"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+
+            <article class="service-card reveal" data-category="restorative">
+              <span class="service-icon" aria-hidden="true">🦷</span>
+              <h3 data-i18n="serviceRootTitle">Root Canal Care</h3>
+              <p data-i18n="serviceRootText">
+                Treatment for infected, painful, or damaged teeth.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Root Canal Care"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+
+            <article class="service-card reveal" data-category="cosmetic">
+              <span class="service-icon" aria-hidden="true">😬</span>
+              <h3 data-i18n="serviceBracesTitle">Braces & Aligners</h3>
+              <p data-i18n="serviceBracesText">
+                Consultation for straighter teeth and better bite alignment.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Braces & Aligners"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+
+            <article class="service-card reveal" data-category="emergency">
+              <span class="service-icon" aria-hidden="true">🚑</span>
+              <h3 data-i18n="serviceEmergencyTitle">Emergency Visit</h3>
+              <p data-i18n="serviceEmergencyText">
+                Help for toothaches, broken teeth, swelling, or urgent pain.
+              </p>
+              <button
+                class="text-button book-service"
+                type="button"
+                data-service="Emergency Visit"
+                data-i18n="bookThisService"
+              >
+                Book this service
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section soft-section" id="doctors">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow" data-i18n="doctorsEyebrow">Meet Our Doctors</p>
+            <h2 data-i18n="doctorsTitle">
+              Experienced care from a small, friendly team.
+            </h2>
+          </div>
+
+          <div class="doctors-grid">
+            <article class="doctor-card reveal">
+              <div class="doctor-avatar" aria-hidden="true">NU</div>
+              <h3>Dr. Nory Ung</h3>
+              <p class="doctor-role" data-i18n="generalDentist">
+                General Dentist
+              </p>
+              <p data-i18n="doctorNoryText">
+                Focused on preventive care, restorative treatment, and
+                comfortable patient visits.
+              </p>
+              <button
+                class="button secondary book-doctor"
+                type="button"
+                data-doctor="Dr. Nory Ung"
+                data-i18n="bookWithNory"
+              >
+                Book with Dr. Nory
+              </button>
+            </article>
+
+            <article class="doctor-card reveal">
+              <div class="doctor-avatar" aria-hidden="true">MC</div>
+              <h3>Dr. Muy Chem</h3>
+              <p class="doctor-role" data-i18n="generalDentist">
+                General Dentist
+              </p>
+              <p data-i18n="doctorMuyText">
+                Provides family dentistry, cosmetic consultation, and
+                personalized treatment planning.
+              </p>
+              <button
+                class="button secondary book-doctor"
+                type="button"
+                data-doctor="Dr. Muy Chem"
+                data-i18n="bookWithMuy"
+              >
+                Book with Dr. Muy
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="booking">
+        <div class="container booking-grid">
+          <div class="booking-info reveal">
+            <p class="eyebrow" data-i18n="bookingEyebrow">Online Booking</p>
+            <h2 data-i18n="bookingTitle">Request an appointment.</h2>
+            <p data-i18n="bookingDescription">
+              Send us your appointment details below. This is a request, not
+              a confirmed booking — our team reviews every request and will
+              contact you to confirm the date and time.
+            </p>
+
+            <div class="feature-list">
+              <div>
+                <span>✓</span>
+                <p data-i18n="featureValidation">Form validation</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p data-i18n="featureDoctor">Doctor selection</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p data-i18n="featureReviewed">Reviewed by our clinic team</p>
+              </div>
+              <div>
+                <span>✓</span>
+                <p data-i18n="featureSecure">Spam-protected, secure submission</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="form-card reveal" id="appointmentForm" novalidate>
+            <h3 data-i18n="appointmentFormTitle">Appointment Request</h3>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fullName" data-i18n="labelName">Full Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  placeholder="Nora Ung"
+                  autocomplete="name"
+                  maxlength="100"
+                />
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" data-i18n="labelPhone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+855..."
+                  autocomplete="tel"
+                  maxlength="20"
+                />
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="email" data-i18n="labelEmail">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="name@email.com"
+                  autocomplete="email"
+                  maxlength="254"
+                />
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="patientType" data-i18n="labelPatientType"
+                  >Patient Type</label
+                >
+                <select id="patientType" name="patientType">
+                  <option value="" data-i18n="selectOne">Select one</option>
+                  <option value="New patient" data-i18n="newPatient">
+                    New patient
+                  </option>
+                  <option
+                    value="Returning patient"
+                    data-i18n="returningPatient"
+                  >
+                    Returning patient
+                  </option>
+                </select>
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="service" data-i18n="labelService">Service</label>
+                <select id="service" name="service">
+                  <option value="" data-i18n="selectService">
+                    Select service
+                  </option>
+                  <option value="Dental Cleaning & Checkup">
+                    Dental Cleaning & Checkup
+                  </option>
+                  <option value="Tooth Filling">Tooth Filling</option>
+                  <option value="Teeth Whitening">Teeth Whitening</option>
+                  <option value="Root Canal Care">Root Canal Care</option>
+                  <option value="Braces & Aligners">Braces & Aligners</option>
+                  <option value="Emergency Visit">Emergency Visit</option>
+                </select>
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="doctor" data-i18n="labelDoctor"
+                  >Preferred Doctor</label
+                >
+                <select id="doctor" name="doctor">
+                  <option value="" data-i18n="selectDoctor">
+                    Select doctor
+                  </option>
+                  <option value="Dr. Nory Ung">Dr. Nory Ung</option>
+                  <option value="Dr. Muy Chem">Dr. Muy Chem</option>
+                  <option value="No preference" data-i18n="noPreference">
+                    No preference
+                  </option>
+                </select>
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="date" data-i18n="labelDate">Preferred Date</label>
+                <input type="date" id="date" name="date" />
+                <small class="error-message"></small>
+              </div>
+
+              <div class="form-group">
+                <label for="time" data-i18n="labelTime">Preferred Time</label>
+                <select id="time" name="time">
+                  <option value="" data-i18n="selectTime">Select time</option>
+                </select>
+                <small class="error-message"></small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message" data-i18n="labelMessage">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                maxlength="500"
+                placeholder="Briefly tell us the reason for your visit (please do not include medical history)."
+                data-i18n-placeholder="messagePlaceholder"
+              ></textarea>
+              <small class="field-hint" data-i18n="messageHint"
+                >A short note is fine — please don't include medical history
+                or other sensitive health details here.</small
+              >
+            </div>
+
+            <!--
+              Honeypot field: invisible to sighted users and skipped by
+              screen readers (aria-hidden + tabindex="-1"), but a naive bot
+              that fills every input will populate it. If `website` arrives
+              non-empty, the Edge Function silently rejects the request.
+              This is a bot trap, not a real field, and is not counted in
+              server-side validation of real form fields.
+            -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Leave this field blank</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+              />
+            </div>
+
+            <div class="checkbox-row">
+              <input type="checkbox" id="consent" name="consent" />
+              <label for="consent" data-i18n="labelConsent">
+                I agree to be contacted about this appointment request.
+              </label>
+            </div>
+            <small
+              class="error-message consent-error"
+              id="consentError"
+            ></small>
+
+            <div
+              id="turnstileWidget"
+              class="turnstile-widget"
+              data-testid="turnstile-widget"
+            ></div>
+            <small class="error-message" id="turnstileError"></small>
+
+            <button
+              type="submit"
+              class="button primary full-width"
+              id="appointmentSubmitButton"
+              data-i18n="submitAppointment"
+            >
+              Submit Appointment
+            </button>
+
+            <div class="alert" id="appointmentAlert" role="status"></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="section soft-section" id="testimonials">
+        <div class="container testimonials-grid">
+          <div class="section-heading left reveal">
+            <p class="eyebrow" data-i18n="testimonialsEyebrow">Testimonials</p>
+            <h2 data-i18n="testimonialsTitle">What patients may say.</h2>
+            <p data-i18n="testimonialsNote">
+              These are sample testimonials. Replace them with real patient
+              reviews before publishing.
+            </p>
+          </div>
+
+          <div class="testimonial-card reveal">
+            <p id="testimonialText">
+              “The clinic was gentle, clean, and very friendly.”
+            </p>
+            <div>
+              <strong id="testimonialName">Sample Patient</strong>
+              <span id="testimonialService">Dental Cleaning</span>
+            </div>
+            <div class="slider-controls">
+              <button
+                type="button"
+                id="prevTestimonial"
+                aria-label="Previous testimonial"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                id="nextTestimonial"
+                aria-label="Next testimonial"
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container faq-grid">
+          <div class="section-heading left reveal">
+            <p class="eyebrow">FAQ</p>
+            <h2 data-i18n="faqTitle">Common questions</h2>
+            <p data-i18n="faqDescription">
+              Edit these later based on the real clinic policy.
+            </p>
+          </div>
+
+          <div class="faq-list reveal">
+            <details open>
+              <summary data-i18n="faqOneQ">Do I need an appointment?</summary>
+              <p data-i18n="faqOneA">
+                Appointments are recommended so the clinic can prepare and
+                reduce waiting time.
+              </p>
+            </details>
+
+            <details>
+              <summary data-i18n="faqTwoQ">Can I book for a child?</summary>
+              <p data-i18n="faqTwoA">
+                Yes. Use the appointment form and write the child’s age in the
+                message box.
+              </p>
+            </details>
+
+            <details>
+              <summary data-i18n="faqThreeQ">What should I bring?</summary>
+              <p data-i18n="faqThreeA">
+                Bring your ID, previous dental records if available, and a list
+                of current medications.
+              </p>
+            </details>
+
+            <details>
+              <summary data-i18n="faqFourQ">
+                Is this booking form connected to the clinic?
+              </summary>
+              <p data-i18n="faqFourA">
+                Yes. Your request is sent securely to our clinic team for
+                review. It is not an automatic confirmation — we will
+                contact you to confirm your appointment.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="container contact-grid">
+          <div class="contact-card reveal">
+            <p class="eyebrow" data-i18n="contactEyebrow">Visit Us</p>
+            <h2>Ung Kheang Heang Dental Clinic</h2>
+            <ul class="contact-list">
+              <li>
+                <strong data-i18n="contactLocationLabel">Location:</strong>
+                <span data-i18n="contactLocation">Phnom Penh, Cambodia</span>
+              </li>
+              <li>
+                <strong data-i18n="contactPhoneLabel">Phone:</strong>
+                <span data-i18n="contactPhone"
+                  >Add clinic phone number here</span
+                >
+              </li>
+              <li>
+                <strong data-i18n="contactEmailLabel">Email:</strong>
+                <span data-i18n="contactEmail">Add clinic email here</span>
+              </li>
+              <li>
+                <strong data-i18n="contactHoursLabel">Hours:</strong>
+                <span data-i18n="contactHours"
+                  >Monday–Saturday, 8:00 AM – 6:00 PM</span
+                >
+              </li>
+            </ul>
+            <a
+              class="button primary"
+              href="https://www.google.com/maps/search/?api=1&query=Phnom%20Penh%20Cambodia"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="directionsButton"
+            >
+              Get Directions
+            </a>
+          </div>
+
+          <form class="form-card reveal" id="contactForm" novalidate>
+            <h3 data-i18n="contactFormTitle">Send a Message</h3>
+
+            <div class="form-group">
+              <label for="contactName" data-i18n="labelName">Full Name</label>
+              <input type="text" id="contactName" autocomplete="name" />
+              <small class="error-message"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="contactEmail" data-i18n="labelEmail"
+                >Email Address</label
+              >
+              <input type="email" id="contactEmail" autocomplete="email" />
+              <small class="error-message"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="contactMessage" data-i18n="labelMessage"
+                >Message</label
+              >
+              <textarea id="contactMessage" rows="5"></textarea>
+              <small class="error-message"></small>
+            </div>
+
+            <button
+              type="submit"
+              class="button primary full-width"
+              data-i18n="sendMessageButton"
+            >
+              Send Message
+            </button>
+            <div class="alert" id="contactAlert" role="status"></div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>Ung Kheang Heang Dental Clinic</h3>
+          <p data-i18n="footerText">
+            Dental clinic website demo for Phnom Penh, Cambodia.
+          </p>
+        </div>
+
+        <div>
+          <h4 data-i18n="footerLinks">Quick Links</h4>
+          <a href="#services" data-i18n="navServices">Services</a>
+          <a href="#doctors" data-i18n="navDoctors">Doctors</a>
+          <a href="#booking" data-i18n="navBooking">Book</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+          <a href="./staff/login.html" class="staff-link" data-i18n="staffLogin"
+            >Staff Login</a
+          >
+        </div>
+
+        <div>
+          <h4 data-i18n="footerImportant">Important Note</h4>
+          <p data-i18n="footerNote">
+            Add the real address, phone number, email, and privacy policy
+            before publishing.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © <span id="year"></span> Ung Kheang Heang Dental Clinic.
+          <span data-i18n="rights">All rights reserved.</span>
+        </p>
+      </div>
+    </footer>
+
+    <button
+      class="back-to-top"
+      id="backToTop"
+      type="button"
+      aria-label="Back to top"
+    >
+      ↑
+    </button>
+
+    <!--
+      config.js defines window.APP_CONFIG (Supabase URL/anon key, the
+      submit-appointment function URL, Turnstile site key). It is generated
+      per environment at Cloudflare Pages build time — see
+      scripts/generate-config.js and config.example.js. It must load before
+      script.js, which reads window.APP_CONFIG at startup.
+    -->
+    <script src="./config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

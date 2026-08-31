@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments — Staff Dashboard</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="staff.css" />
+  </head>
+  <body>
+    <div class="staff-shell">
+      <header class="staff-topbar">
+        <span class="brand"><span aria-hidden="true">🦷</span> UKH Dental — Staff Dashboard</span>
+        <div class="staff-user">
+          <span id="staffUserLabel">…</span>
+          <button type="button" class="button secondary" id="signOutButton">Sign Out</button>
+        </div>
+      </header>
+
+      <main class="dashboard-main">
+        <div class="dashboard-toolbar">
+          <div class="dashboard-filters">
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search name, phone, email, or reference…"
+              aria-label="Search appointments"
+            />
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="all">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="contacted">Contacted</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="no_show">No-show</option>
+            </select>
+            <button type="button" class="button secondary" id="refreshButton">Refresh</button>
+          </div>
+          <p class="dashboard-summary" id="dashboardSummary"></p>
+        </div>
+
+        <div class="table-scroll">
+          <table class="appointments-table">
+            <thead>
+              <tr>
+                <th>Reference</th>
+                <th>Patient</th>
+                <th>Contact</th>
+                <th>Service</th>
+                <th>Doctor</th>
+                <th>Requested Date/Time</th>
+                <th>Status</th>
+                <th>Submitted</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsTableBody">
+              <tr>
+                <td colspan="9" class="loading-state">Loading appointments…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script src="../config.js"></script>
+    <script type="module" src="./dashboard.js"></script>
+  </body>
+</html>

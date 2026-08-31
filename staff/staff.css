@@ -1,0 +1,231 @@
+/* ============================================================================
+   STAFF AREA — shared styles for login.html and dashboard.html.
+   Loaded alongside the public site's ../styles.css (for design tokens,
+   .button, .form-group, input/select/textarea, .alert, etc.) — this file
+   only adds what the staff pages need on top of that.
+   ============================================================================ */
+
+.staff-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--soft);
+}
+
+.staff-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 28px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.staff-topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.staff-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------------------------------
+   LOGIN
+   ---------------------------------------------------------------------------- */
+.login-wrap {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+}
+
+.login-card {
+  width: min(420px, 100%);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--small-shadow);
+  padding: 34px;
+}
+
+.login-card h1 {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.login-card p.subtitle {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.login-footnote {
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------------------------
+   DASHBOARD
+   ---------------------------------------------------------------------------- */
+.dashboard-main {
+  flex: 1;
+  padding: 28px;
+}
+
+.dashboard-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashboard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.dashboard-filters input[type="search"],
+.dashboard-filters select {
+  width: auto;
+  min-width: 180px;
+}
+
+.dashboard-summary {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--small-shadow);
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.appointments-table th {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  position: sticky;
+  top: 0;
+}
+
+.appointments-table td.wrap {
+  white-space: normal;
+  max-width: 260px;
+}
+
+.appointments-table tbody tr:hover {
+  background: rgba(8, 126, 164, 0.04);
+}
+
+.status-select {
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+}
+
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-contacted {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-confirmed {
+  background: var(--success-soft);
+  color: var(--success-dark);
+}
+
+.status-completed {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.status-cancelled {
+  background: var(--danger-soft);
+  color: #991b1b;
+}
+
+.status-no_show {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.empty-state,
+.loading-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px;
+}
+
+.detail-row {
+  background: var(--soft);
+}
+
+.detail-row td {
+  white-space: normal;
+}
+
+.audit-list {
+  list-style: none;
+  font-size: 0.84rem;
+  color: var(--muted);
+  display: grid;
+  gap: 6px;
+}
+
+.audit-list li strong {
+  color: var(--text);
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font-weight: 800;
+  padding: 0;
+}
+
+@media (max-width: 720px) {
+  .staff-topbar,
+  .dashboard-main {
+    padding: 16px;
+  }
+
+  .dashboard-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

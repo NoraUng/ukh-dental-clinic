@@ -1,0 +1,15 @@
+# Generated per environment — never commit real Supabase/Turnstile values.
+config.js
+
+# Local Edge Function secrets for `supabase functions serve --env-file`.
+supabase/.env.local
+.env
+.env.local
+
+# Supabase CLI local dev artifacts.
+.branches
+.temp
+
+# OS / editor noise.
+.DS_Store
+node_modules/

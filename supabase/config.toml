@@ -1,0 +1,48 @@
+# Supabase CLI project config. Generated/maintained by `supabase init` and
+# edited by hand for this project. Run `supabase link --project-ref <ref>`
+# once per environment (dev, then again for prod) before `supabase db push`
+# or `supabase functions deploy`.
+
+project_id = "ukh-dental-clinic"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+# Local dev only. In the hosted dashboard (Authentication -> URL
+# Configuration) for both the dev and prod projects, set this to the real
+# Cloudflare Pages URL for that environment instead.
+site_url = "http://localhost:8788"
+additional_redirect_urls = ["http://localhost:8788", "http://localhost:8788/staff/set-password.html"]
+jwt_expiry = 3600
+enable_signup = false
+# No public signup: staff accounts are created by an admin (Supabase
+# dashboard -> Authentication -> Users -> Invite user), then given a row in
+# staff_profiles. There is no self-service registration path anywhere in
+# this project.
+#
+# staff/set-password.html lets an already-invited staff member pick their
+# own password from the invite/reset email — it never creates an account.
+# In the hosted dashboard (Authentication -> URL Configuration), add
+# "<your-real-domain>/staff/set-password.html" to Redirect URLs for both the
+# dev and prod projects, same as above for additional_redirect_urls.
+
+[functions.submit-appointment]
+verify_jwt = false
+# This function is called by anonymous site visitors (it's how an
+# appointment gets created in the first place), so it can't require a
+# Supabase auth JWT. Its own request validation, Turnstile check, and rate
+# limiting are what stand in for that — see submit-appointment/index.js.

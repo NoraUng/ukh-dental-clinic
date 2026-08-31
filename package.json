@@ -1,0 +1,24 @@
+{
+  "name": "ung-kheang-heang-dental-clinic-website",
+  "version": "2.0.0",
+  "description": "Front-end + Supabase/Cloudflare backend for Ung Kheang Heang Dental Clinic in Phnom Penh, Cambodia.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=8788",
+    "build": "node scripts/generate-config.js",
+    "db:push": "supabase db push",
+    "functions:serve": "supabase functions serve submit-appointment --env-file supabase/.env.local",
+    "functions:deploy": "supabase functions deploy submit-appointment"
+  },
+  "keywords": [
+    "dental-clinic",
+    "website",
+    "html",
+    "css",
+    "javascript",
+    "supabase",
+    "cloudflare-pages"
+  ],
+  "author": "Nora Ung",
+  "license": "MIT"
+}
