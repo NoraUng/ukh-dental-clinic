@@ -1,0 +1,13 @@
+# Cloudflare Workers static-assets config (the current successor to
+# Cloudflare Pages — see BACKEND_PLAN.md phase 8.8 for the full deploy
+# walkthrough). This is a static site with no Workers Functions, so there is
+# no [main] entry point — only assets.directory, pointing at the repo root
+# where index.html and the build-time-generated config.js both live.
+#
+# `name` must match the project name entered in the Cloudflare dashboard's
+# "Connect to Git" flow exactly, or the build fails.
+name = "ukh-dental-clinic"
+compatibility_date = "2026-08-30"
+
+[assets]
+directory = "./"
