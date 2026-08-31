@@ -412,7 +412,7 @@
             <h3 data-i18n="appointmentFormTitle">Appointment Request</h3>
 
             <div class="form-grid">
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="fullName" data-i18n="labelName">Full Name</label>
                 <input
                   type="text"
@@ -421,11 +421,12 @@
                   placeholder="Nora Ung"
                   autocomplete="name"
                   maxlength="100"
+                  required
                 />
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="phone" data-i18n="labelPhone">Phone Number</label>
                 <input
                   type="tel"
@@ -434,6 +435,7 @@
                   placeholder="+855..."
                   autocomplete="tel"
                   maxlength="20"
+                  required
                 />
                 <small class="error-message"></small>
               </div>
@@ -507,19 +509,72 @@
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="date" data-i18n="labelDate">Preferred Date</label>
-                <input type="date" id="date" name="date" />
+                <input type="date" id="date" name="date" required />
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="time" data-i18n="labelTime">Preferred Time</label>
-                <select id="time" name="time">
+                <select id="time" name="time" required>
                   <option value="" data-i18n="selectTime">Select time</option>
                 </select>
                 <small class="error-message"></small>
               </div>
+            </div>
+
+            <div class="form-group required">
+              <label for="medicalCondition" data-i18n="labelMedicalCondition"
+                >Any medical conditions we should know about?</label
+              >
+              <select id="medicalCondition" name="medicalCondition" required>
+                <option value="" data-i18n="selectMedicalCondition">
+                  Select one
+                </option>
+                <option value="none" data-i18n="medicalConditionNone">
+                  None
+                </option>
+                <option
+                  value="High blood pressure"
+                  data-i18n="medicalConditionBloodPressure"
+                >
+                  High blood pressure
+                </option>
+                <option value="Diabetes" data-i18n="medicalConditionDiabetes">
+                  Diabetes
+                </option>
+                <option
+                  value="Allergies"
+                  data-i18n="medicalConditionAllergies"
+                >
+                  Allergies
+                </option>
+                <option value="Other" data-i18n="medicalConditionOther">
+                  Other
+                </option>
+              </select>
+              <small class="error-message"></small>
+            </div>
+
+            <div
+              class="form-group"
+              id="medicalConditionDetailsGroup"
+              hidden
+            >
+              <label
+                for="medicalConditionDetails"
+                data-i18n="labelMedicalConditionDetails"
+                >Please describe</label
+              >
+              <input
+                type="text"
+                id="medicalConditionDetails"
+                name="medicalConditionDetails"
+                maxlength="200"
+                data-i18n-placeholder="medicalConditionDetailsPlaceholder"
+                placeholder="e.g. penicillin allergy"
+              />
             </div>
 
             <div class="form-group">
@@ -529,12 +584,12 @@
                 name="message"
                 rows="4"
                 maxlength="500"
-                placeholder="Briefly tell us the reason for your visit (please do not include medical history)."
+                placeholder="Briefly tell us the reason for your visit."
                 data-i18n-placeholder="messagePlaceholder"
               ></textarea>
               <small class="field-hint" data-i18n="messageHint"
-                >A short note is fine — please don't include medical history
-                or other sensitive health details here.</small
+                >A short note is fine — for medical conditions, please use the
+                dropdown above instead of writing them here.</small
               >
             </div>
 

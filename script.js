@@ -34,6 +34,13 @@ const dateInput = document.getElementById("date");
 const timeSelect = document.getElementById("time");
 const serviceSelect = document.getElementById("service");
 const doctorSelect = document.getElementById("doctor");
+const medicalConditionSelect = document.getElementById("medicalCondition");
+const medicalConditionDetailsGroup = document.getElementById(
+  "medicalConditionDetailsGroup",
+);
+const medicalConditionDetailsInput = document.getElementById(
+  "medicalConditionDetails",
+);
 const appointmentForm = document.getElementById("appointmentForm");
 const appointmentAlert = document.getElementById("appointmentAlert");
 const appointmentSubmitButton = document.getElementById(
@@ -160,11 +167,19 @@ const translations = {
     selectTime: "Select time",
     timeMorning: "Morning",
     timeAfternoon: "Afternoon",
+    labelMedicalCondition: "Any medical conditions we should know about?",
+    selectMedicalCondition: "Select one",
+    medicalConditionNone: "None",
+    medicalConditionBloodPressure: "High blood pressure",
+    medicalConditionDiabetes: "Diabetes",
+    medicalConditionAllergies: "Allergies",
+    medicalConditionOther: "Other",
+    labelMedicalConditionDetails: "Please describe",
+    medicalConditionDetailsPlaceholder: "e.g. penicillin allergy",
     labelMessage: "Message",
-    messagePlaceholder:
-      "Briefly tell us the reason for your visit (please do not include medical history).",
+    messagePlaceholder: "Briefly tell us the reason for your visit.",
     messageHint:
-      "A short note is fine — please don't include medical history or other sensitive health details here.",
+      "A short note is fine — for medical conditions, please use the dropdown above instead of writing them here.",
     labelConsent: "I agree to be contacted about this appointment request.",
     submitAppointment: "Submit Appointment",
     submittingAppointment: "Submitting…",
@@ -191,6 +206,8 @@ const translations = {
     fieldErrorInvalidPatientType: "Please select patient type.",
     fieldErrorInvalidService: "Please select a service.",
     fieldErrorInvalidDoctor: "Please select a doctor.",
+    fieldErrorInvalidMedicalCondition:
+      "Please select an option, or \"None\" if not applicable.",
     fieldErrorInvalidDate: "Please select a valid date.",
     fieldErrorDateInPast: "Please choose a date that is today or later.",
     fieldErrorDateTooFar: "Please choose a date within the next few months.",
@@ -329,11 +346,19 @@ const translations = {
     selectTime: "ជ្រើសម៉ោង",
     timeMorning: "ព្រឹក",
     timeAfternoon: "រសៀល",
+    labelMedicalCondition: "តើអ្នកមានជំងឺអ្វីដែលយើងគួរដឹងទេ?",
+    selectMedicalCondition: "ជ្រើសរើសមួយ",
+    medicalConditionNone: "គ្មាន",
+    medicalConditionBloodPressure: "សម្ពាធឈាមខ្ពស់",
+    medicalConditionDiabetes: "ជំងឺទឹកនោមផ្អែម",
+    medicalConditionAllergies: "អាឡែហ្ស៊ី",
+    medicalConditionOther: "ផ្សេងទៀត",
+    labelMedicalConditionDetails: "សូមពិពណ៌នា",
+    medicalConditionDetailsPlaceholder: "ឧទាហរណ៍ អាឡែហ្ស៊ីនឹងថ្នាំប៉េនីស៊ីលីន",
     labelMessage: "សារ",
-    messagePlaceholder:
-      "សូមរៀបរាប់ខ្លីៗអំពីមូលហេតុនៃការមកជួប (សូមកុំបញ្ចូលប្រវត្តិវេជ្ជសាស្ត្រ)។",
+    messagePlaceholder: "សូមរៀបរាប់ខ្លីៗអំពីមូលហេតុនៃការមកជួប។",
     messageHint:
-      "សេចក្តីខ្លីៗគឺគ្រប់គ្រាន់ហើយ — សូមកុំបញ្ចូលប្រវត្តិវេជ្ជសាស្ត្រ ឬព័ត៌មានសុខភាពរសើបផ្សេងទៀតនៅទីនេះ។",
+      "សេចក្តីខ្លីៗគឺគ្រប់គ្រាន់ហើយ — សម្រាប់ជំងឺផ្សេងៗ សូមប្រើម៉ឺនុយខាងលើជំនួសឱ្យការសរសេរនៅទីនេះ។",
     labelConsent: "ខ្ញុំយល់ព្រមឱ្យទាក់ទងមកខ្ញុំពីការស្នើសុំណាត់ជួបនេះ។",
     submitAppointment: "ផ្ញើការណាត់ជួប",
     submittingAppointment: "កំពុងផ្ញើ…",
@@ -356,6 +381,7 @@ const translations = {
     fieldErrorInvalidPatientType: "សូមជ្រើសរើសប្រភេទអ្នកជំងឺ។",
     fieldErrorInvalidService: "សូមជ្រើសរើសសេវាកម្ម។",
     fieldErrorInvalidDoctor: "សូមជ្រើសរើសវេជ្ជបណ្ឌិត។",
+    fieldErrorInvalidMedicalCondition: "សូមជ្រើសរើសមួយ ឬ \"គ្មាន\" បើមិនពាក់ព័ន្ធ។",
     fieldErrorInvalidDate: "សូមជ្រើសរើសកាលបរិច្ឆេទត្រឹមត្រូវ។",
     fieldErrorDateInPast: "សូមជ្រើសរើសកាលបរិច្ឆេទថ្ងៃនេះ ឬថ្ងៃក្រោយ។",
     fieldErrorDateTooFar: "សូមជ្រើសរើសកាលបរិច្ឆេទក្នុងរយៈពេលពីរបីខែខាងមុខ។",
@@ -686,6 +712,7 @@ function clearAllAppointmentErrors() {
     "patientType",
     "service",
     "doctor",
+    "medicalCondition",
     "date",
     "time",
   ].forEach((id) => clearError(document.getElementById(id)));
@@ -739,6 +766,11 @@ function validateAppointmentFormClientSide() {
     isValid = false;
   }
 
+  if (!medicalConditionSelect.value) {
+    setError(medicalConditionSelect, t.fieldErrorInvalidMedicalCondition);
+    isValid = false;
+  }
+
   if (!date.value) {
     setError(date, t.fieldErrorInvalidDate);
     isValid = false;
@@ -771,6 +803,31 @@ function showAppointmentAlert(className, message) {
   appointmentAlert.textContent = message;
 }
 
+/**
+ * There is no dedicated medical-condition column in the database — see
+ * BACKEND_PLAN.md's security checklist. Instead, whatever the patient
+ * selects (and describes, for Allergies/Other) is folded into the same
+ * capped free-text `message` field already sent to staff, exactly as if
+ * they'd typed it into the message box themselves.
+ */
+function buildMessageWithMedicalCondition() {
+  const baseMessage = document.getElementById("message").value.trim();
+  const condition = medicalConditionSelect.value;
+
+  if (!condition || condition === "none") return baseMessage;
+
+  let conditionNote = `Medical condition: ${condition}`;
+  if (["Allergies", "Other"].includes(condition)) {
+    const details = medicalConditionDetailsInput.value.trim();
+    if (details) conditionNote += ` — ${details}`;
+  }
+
+  const combined = baseMessage
+    ? `${conditionNote}. ${baseMessage}`
+    : conditionNote;
+  return combined.slice(0, 500);
+}
+
 async function handleAppointmentSubmit(event) {
   event.preventDefault();
 
@@ -797,7 +854,7 @@ async function handleAppointmentSubmit(event) {
     preferredDoctor: document.getElementById("doctor").value,
     preferredDate: document.getElementById("date").value,
     preferredTime: document.getElementById("time").value,
-    message: document.getElementById("message").value.trim(),
+    message: buildMessageWithMedicalCondition(),
     consent: document.getElementById("consent").checked,
     locale: currentLanguage,
     turnstileToken,
@@ -999,6 +1056,20 @@ document.querySelectorAll(".book-doctor").forEach((button) => {
     document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
   });
 });
+
+function updateMedicalConditionDetailsVisibility() {
+  const needsDetails = ["Allergies", "Other"].includes(
+    medicalConditionSelect.value,
+  );
+  medicalConditionDetailsGroup.hidden = !needsDetails;
+  if (!needsDetails) medicalConditionDetailsInput.value = "";
+}
+
+medicalConditionSelect.addEventListener(
+  "change",
+  updateMedicalConditionDetailsVisibility,
+);
+updateMedicalConditionDetailsVisibility();
 
 appointmentForm.addEventListener("submit", handleAppointmentSubmit);
 contactForm.addEventListener("submit", handleContactSubmit);

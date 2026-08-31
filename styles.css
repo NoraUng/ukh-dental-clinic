@@ -324,6 +324,11 @@ textarea:focus {
   margin-bottom: 7px;
 }
 
+.form-group.required label::after {
+  content: " *";
+  color: var(--danger);
+}
+
 .field-hint {
   display: block;
   margin-top: 6px;
