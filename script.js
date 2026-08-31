@@ -41,6 +41,12 @@ const medicalConditionDetailsGroup = document.getElementById(
 const medicalConditionDetailsInput = document.getElementById(
   "medicalConditionDetails",
 );
+const otherServiceDetailsGroup = document.getElementById(
+  "otherServiceDetailsGroup",
+);
+const otherServiceDetailsInput = document.getElementById(
+  "otherServiceDetails",
+);
 const appointmentForm = document.getElementById("appointmentForm");
 const appointmentAlert = document.getElementById("appointmentAlert");
 const appointmentSubmitButton = document.getElementById(
@@ -125,6 +131,15 @@ const translations = {
     serviceEmergencyTitle: "Emergency Visit",
     serviceEmergencyText:
       "Help for toothaches, broken teeth, swelling, or urgent pain.",
+    serviceImplantsTitle: "Dental Implants",
+    serviceImplantsText:
+      "Permanent replacement for missing teeth, anchored in the jaw.",
+    serviceExtractionTitle: "Teeth Extraction",
+    serviceExtractionText:
+      "Removal of a damaged, decayed, or problematic tooth.",
+    serviceOtherTitle: "Other",
+    serviceOtherText:
+      "Not sure which service you need? Book a visit and describe it to us.",
     bookThisService: "Book this service",
 
     // --- Doctors ---
@@ -159,6 +174,8 @@ const translations = {
     returningPatient: "Returning patient",
     labelService: "Service",
     selectService: "Select service",
+    labelOtherServiceDetails: "Please describe the service you need",
+    otherServiceDetailsPlaceholder: "e.g. denture repair",
     labelDoctor: "Preferred Doctor",
     selectDoctor: "Select doctor",
     noPreference: "No preference",
@@ -205,6 +222,7 @@ const translations = {
     fieldErrorInvalidEmail: "Please enter a valid email address.",
     fieldErrorInvalidPatientType: "Please select patient type.",
     fieldErrorInvalidService: "Please select a service.",
+    fieldErrorOtherServiceRequired: "Please describe the service you need.",
     fieldErrorInvalidDoctor: "Please select a doctor.",
     fieldErrorInvalidMedicalCondition:
       "Please select an option, or \"None\" if not applicable.",
@@ -305,6 +323,12 @@ const translations = {
     serviceBracesText: "ពិគ្រោះអំពីការតម្រង់ធ្មេញ និងកែលម្អការខាំ។",
     serviceEmergencyTitle: "ការពិនិត្យបន្ទាន់",
     serviceEmergencyText: "ជួយពេលឈឺធ្មេញ ធ្មេញបាក់ ហើម ឬមានការឈឺចាប់បន្ទាន់។",
+    serviceImplantsTitle: "ការដាក់ធ្មេញសិប្បនិម្មិត",
+    serviceImplantsText: "ការជំនួសធ្មេញដែលបាត់អចិន្ត្រៃយ៍ ដោយបញ្ចូលក្នុងឆ្អឹងថ្គាម។",
+    serviceExtractionTitle: "ការដកធ្មេញ",
+    serviceExtractionText: "ការដកចេញនូវធ្មេញដែលខូច ពុក ឬមានបញ្ហា។",
+    serviceOtherTitle: "ផ្សេងទៀត",
+    serviceOtherText: "មិនប្រាកដថាត្រូវការសេវាមួយណា? សូមកក់ និងពិពណ៌នាមកយើង។",
     bookThisService: "កក់សេវានេះ",
 
     // --- Doctors ---
@@ -338,6 +362,8 @@ const translations = {
     returningPatient: "អ្នកជំងឺចាស់",
     labelService: "សេវាកម្ម",
     selectService: "ជ្រើសសេវាកម្ម",
+    labelOtherServiceDetails: "សូមពិពណ៌នាសេវាដែលអ្នកត្រូវការ",
+    otherServiceDetailsPlaceholder: "ឧទាហរណ៍ ជួសជុលធ្មេញសិប្បនិម្មិត",
     labelDoctor: "វេជ្ជបណ្ឌិតដែលចង់ជួប",
     selectDoctor: "ជ្រើសវេជ្ជបណ្ឌិត",
     noPreference: "មិនកំណត់",
@@ -380,6 +406,7 @@ const translations = {
     fieldErrorInvalidEmail: "សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែលដែលត្រឹមត្រូវ។",
     fieldErrorInvalidPatientType: "សូមជ្រើសរើសប្រភេទអ្នកជំងឺ។",
     fieldErrorInvalidService: "សូមជ្រើសរើសសេវាកម្ម។",
+    fieldErrorOtherServiceRequired: "សូមពិពណ៌នាសេវាដែលអ្នកត្រូវការ។",
     fieldErrorInvalidDoctor: "សូមជ្រើសរើសវេជ្ជបណ្ឌិត។",
     fieldErrorInvalidMedicalCondition: "សូមជ្រើសរើសមួយ ឬ \"គ្មាន\" បើមិនពាក់ព័ន្ធ។",
     fieldErrorInvalidDate: "សូមជ្រើសរើសកាលបរិច្ឆេទត្រឹមត្រូវ។",
@@ -711,6 +738,7 @@ function clearAllAppointmentErrors() {
     "email",
     "patientType",
     "service",
+    "otherServiceDetails",
     "doctor",
     "medicalCondition",
     "date",
@@ -760,6 +788,12 @@ function validateAppointmentFormClientSide() {
 
   if (!service.value) {
     setError(service, t.fieldErrorInvalidService);
+    isValid = false;
+  } else if (
+    service.value === "Other" &&
+    !otherServiceDetailsInput.value.trim()
+  ) {
+    setError(otherServiceDetailsInput, t.fieldErrorOtherServiceRequired);
     isValid = false;
   }
 
@@ -811,23 +845,34 @@ function showAppointmentAlert(className, message) {
  * BACKEND_PLAN.md's security checklist. Instead, whatever the patient
  * selects (and describes, for Allergies/Other) is folded into the same
  * capped free-text `message` field already sent to staff, exactly as if
- * they'd typed it into the message box themselves.
+ * they'd typed it into the message box themselves. The "Other" service's
+ * description is folded in the same way, since `service` is a real
+ * database enum with no free-text room of its own.
  */
-function buildMessageWithMedicalCondition() {
+function buildAppointmentMessage() {
   const baseMessage = document.getElementById("message").value.trim();
-  const condition = medicalConditionSelect.value;
+  const notes = [];
 
-  if (!condition || condition === "none") return baseMessage;
-
-  let conditionNote = `Medical condition: ${condition}`;
-  if (["Allergies", "Other"].includes(condition)) {
-    const details = medicalConditionDetailsInput.value.trim();
-    if (details) conditionNote += ` — ${details}`;
+  if (serviceSelect.value === "Other") {
+    const details = otherServiceDetailsInput.value.trim();
+    if (details) notes.push(`Service requested: ${details}`);
   }
 
+  const condition = medicalConditionSelect.value;
+  if (condition && condition !== "none") {
+    let conditionNote = `Medical condition: ${condition}`;
+    if (["Allergies", "Other"].includes(condition)) {
+      const conditionDetails = medicalConditionDetailsInput.value.trim();
+      if (conditionDetails) conditionNote += ` — ${conditionDetails}`;
+    }
+    notes.push(conditionNote);
+  }
+
+  if (notes.length === 0) return baseMessage;
+
   const combined = baseMessage
-    ? `${conditionNote}. ${baseMessage}`
-    : conditionNote;
+    ? `${notes.join(". ")}. ${baseMessage}`
+    : notes.join(". ");
   return combined.slice(0, 500);
 }
 
@@ -857,7 +902,7 @@ async function handleAppointmentSubmit(event) {
     preferredDoctor: document.getElementById("doctor").value,
     preferredDate: document.getElementById("date").value,
     preferredTime: document.getElementById("time").value,
-    message: buildMessageWithMedicalCondition(),
+    message: buildAppointmentMessage(),
     consent: document.getElementById("consent").checked,
     locale: currentLanguage,
     turnstileToken,
@@ -1050,6 +1095,7 @@ document.querySelectorAll(".filter-button").forEach((button) => {
 document.querySelectorAll(".book-service").forEach((button) => {
   button.addEventListener("click", () => {
     serviceSelect.value = button.dataset.service;
+    updateOtherServiceDetailsVisibility();
     document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
   });
 });
@@ -1074,6 +1120,15 @@ medicalConditionSelect.addEventListener(
   updateMedicalConditionDetailsVisibility,
 );
 updateMedicalConditionDetailsVisibility();
+
+function updateOtherServiceDetailsVisibility() {
+  const needsDetails = serviceSelect.value === "Other";
+  otherServiceDetailsGroup.hidden = !needsDetails;
+  if (!needsDetails) otherServiceDetailsInput.value = "";
+}
+
+serviceSelect.addEventListener("change", updateOtherServiceDetailsVisibility);
+updateOtherServiceDetailsVisibility();
 
 appointmentForm.addEventListener("submit", handleAppointmentSubmit);
 contactForm.addEventListener("submit", handleContactSubmit);

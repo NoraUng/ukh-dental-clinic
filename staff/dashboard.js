@@ -26,6 +26,9 @@ const SERVICE_LABELS = {
   root_canal_care: "Root Canal Care",
   braces_aligners: "Braces & Aligners",
   emergency_visit: "Emergency Visit",
+  dental_implants: "Dental Implants",
+  teeth_extraction: "Teeth Extraction",
+  other: "Other",
 };
 
 const DOCTOR_LABELS = {

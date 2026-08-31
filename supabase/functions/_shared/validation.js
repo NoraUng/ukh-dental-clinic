@@ -16,6 +16,9 @@ export const SERVICE_MAP = {
   "Root Canal Care": "root_canal_care",
   "Braces & Aligners": "braces_aligners",
   "Emergency Visit": "emergency_visit",
+  "Dental Implants": "dental_implants",
+  "Teeth Extraction": "teeth_extraction",
+  Other: "other",
 };
 
 export const DOCTOR_MAP = {
