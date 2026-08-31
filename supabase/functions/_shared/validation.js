@@ -98,7 +98,8 @@ export function validateSubmission(raw) {
     fieldErrors.phone = "INVALID_PHONE";
   }
 
-  if (!EMAIL_PATTERN.test(emailRaw) || emailRaw.length > 254) {
+  // Email is optional — only validate its format if the patient entered one.
+  if (emailRaw && (!EMAIL_PATTERN.test(emailRaw) || emailRaw.length > 254)) {
     fieldErrors.email = "INVALID_EMAIL";
   }
 
@@ -154,7 +155,7 @@ export function validateSubmission(raw) {
     data: {
       fullName: fullNameRaw,
       phone: phoneDigits,
-      email: emailRaw,
+      email: emailRaw || null,
       patientType,
       service,
       preferredDoctor,

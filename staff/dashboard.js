@@ -167,7 +167,7 @@ function renderTable() {
       <td>${escapeHtml(appointment.full_name)}<br><small>${escapeHtml(
         appointment.patient_type === "new" ? "New patient" : "Returning patient",
       )}</small></td>
-      <td>${escapeHtml(appointment.phone)}<br><small>${escapeHtml(appointment.email)}</small></td>
+      <td>${escapeHtml(appointment.phone)}<br><small>${escapeHtml(appointment.email || "—")}</small></td>
       <td>${escapeHtml(SERVICE_LABELS[appointment.service] ?? appointment.service)}</td>
       <td>${escapeHtml(DOCTOR_LABELS[appointment.preferred_doctor] ?? appointment.preferred_doctor)}</td>
       <td>${escapeHtml(appointment.preferred_date)}<br><small>${escapeHtml(appointment.preferred_time)}</small></td>

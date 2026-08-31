@@ -453,11 +453,11 @@
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="patientType" data-i18n="labelPatientType"
                   >Patient Type</label
                 >
-                <select id="patientType" name="patientType">
+                <select id="patientType" name="patientType" required>
                   <option value="" data-i18n="selectOne">Select one</option>
                   <option value="New patient" data-i18n="newPatient">
                     New patient
@@ -472,9 +472,9 @@
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="service" data-i18n="labelService">Service</label>
-                <select id="service" name="service">
+                <select id="service" name="service" required>
                   <option value="" data-i18n="selectService">
                     Select service
                   </option>
@@ -490,11 +490,11 @@
                 <small class="error-message"></small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group required">
                 <label for="doctor" data-i18n="labelDoctor"
                   >Preferred Doctor</label
                 >
-                <select id="doctor" name="doctor">
+                <select id="doctor" name="doctor" required>
                   <option value="" data-i18n="selectDoctor">
                     Select doctor
                   </option>
@@ -612,8 +612,8 @@
               />
             </div>
 
-            <div class="checkbox-row">
-              <input type="checkbox" id="consent" name="consent" />
+            <div class="checkbox-row required">
+              <input type="checkbox" id="consent" name="consent" required />
               <label for="consent" data-i18n="labelConsent">
                 I agree to be contacted about this appointment request.
               </label>

@@ -718,6 +718,7 @@ function clearAllAppointmentErrors() {
   ].forEach((id) => clearError(document.getElementById(id)));
   const consentErrorElement = document.getElementById("consentError");
   if (consentErrorElement) consentErrorElement.textContent = "";
+  document.getElementById("consent")?.classList.remove("input-error");
 }
 
 function validateAppointmentFormClientSide() {
@@ -746,7 +747,8 @@ function validateAppointmentFormClientSide() {
     isValid = false;
   }
 
-  if (!isValidEmail(email.value.trim())) {
+  // Email is optional — only validate its format if the patient entered one.
+  if (email.value.trim() && !isValidEmail(email.value.trim())) {
     setError(email, t.fieldErrorInvalidEmail);
     isValid = false;
   }
@@ -784,6 +786,7 @@ function validateAppointmentFormClientSide() {
   if (!consent.checked) {
     document.getElementById("consentError").textContent =
       t.fieldErrorConsentRequired;
+    consent.classList.add("input-error");
     isValid = false;
   }
 
@@ -904,6 +907,7 @@ async function handleAppointmentSubmit(event) {
             consentErrorElement.textContent =
               t[FIELD_ERROR_CODE_TO_KEY[errorCode]] || t.msgValidationError;
           }
+          document.getElementById("consent")?.classList.add("input-error");
           return;
         }
         const element = getFieldElement(field);

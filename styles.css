@@ -339,6 +339,7 @@ textarea:focus {
 
 .input-error {
   border-color: var(--danger) !important;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.18) !important;
 }
 
 .error-message {
@@ -360,6 +361,11 @@ textarea:focus {
 .checkbox-row input {
   width: auto;
   margin-top: 6px;
+}
+
+.checkbox-row.required label::after {
+  content: " *";
+  color: var(--danger);
 }
 
 /* Turnstile's widget renders its own iframe at a fixed size; this just
