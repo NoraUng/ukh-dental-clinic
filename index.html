@@ -10,8 +10,15 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Khmer:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon font: replaces the emoji used as icons throughout the page
+         (logo, service icons, floating cards) with a consistent icon set. -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -37,7 +44,9 @@
           class="brand"
           aria-label="Ung Kheang Heang Dental Clinic home"
         >
-          <span class="brand-icon" aria-hidden="true">🦷</span>
+          <span class="brand-icon" aria-hidden="true"
+            ><i class="fa-solid fa-tooth"></i
+          ></span>
           <span class="brand-text">
             <strong>Ung Kheang Heang</strong>
             <small>Dental Clinic</small>
@@ -120,7 +129,9 @@
         <div class="hero-visual reveal">
           <div class="hero-card main-card">
             <div class="card-shine"></div>
-            <span class="large-tooth" aria-hidden="true">🦷</span>
+            <span class="large-tooth" aria-hidden="true"
+              ><i class="fa-solid fa-tooth"></i
+            ></span>
             <h2 data-i18n="heroCardTitle">Smile Care</h2>
             <p data-i18n="heroCardText">
               Modern, friendly, and family-focused dental treatment.
@@ -128,7 +139,7 @@
           </div>
 
           <div class="floating-card hours-card">
-            <span aria-hidden="true">⏰</span>
+            <span aria-hidden="true"><i class="fa-solid fa-clock"></i></span>
             <div>
               <p data-i18n="openHours">Open Hours</p>
               <strong data-i18n="openHoursTime"
@@ -195,7 +206,9 @@
 
           <div class="services-grid">
             <article class="service-card reveal" data-category="preventive">
-              <span class="service-icon" aria-hidden="true">🪥</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-tooth"></i
+              ></span>
               <h3 data-i18n="serviceCleaningTitle">
                 Dental Cleaning & Checkup
               </h3>
@@ -213,7 +226,9 @@
             </article>
 
             <article class="service-card reveal" data-category="restorative">
-              <span class="service-icon" aria-hidden="true">✨</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-syringe"></i
+              ></span>
               <h3 data-i18n="serviceFillingTitle">Tooth Filling</h3>
               <p data-i18n="serviceFillingText">
                 Treatment for cavities using tooth-colored filling material.
@@ -229,7 +244,9 @@
             </article>
 
             <article class="service-card reveal" data-category="cosmetic">
-              <span class="service-icon" aria-hidden="true">😁</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-sun"></i
+              ></span>
               <h3 data-i18n="serviceWhiteningTitle">Teeth Whitening</h3>
               <p data-i18n="serviceWhiteningText">
                 Whitening options to help improve the brightness of your smile.
@@ -245,7 +262,9 @@
             </article>
 
             <article class="service-card reveal" data-category="restorative">
-              <span class="service-icon" aria-hidden="true">🦷</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-bolt"></i
+              ></span>
               <h3 data-i18n="serviceRootTitle">Root Canal Care</h3>
               <p data-i18n="serviceRootText">
                 Treatment for infected, painful, or damaged teeth.
@@ -261,7 +280,9 @@
             </article>
 
             <article class="service-card reveal" data-category="cosmetic">
-              <span class="service-icon" aria-hidden="true">😬</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-teeth"></i
+              ></span>
               <h3 data-i18n="serviceBracesTitle">Braces & Aligners</h3>
               <p data-i18n="serviceBracesText">
                 Consultation for straighter teeth and better bite alignment.
@@ -277,7 +298,9 @@
             </article>
 
             <article class="service-card reveal" data-category="emergency">
-              <span class="service-icon" aria-hidden="true">🚑</span>
+              <span class="service-icon" aria-hidden="true"
+                ><i class="fa-solid fa-truck-medical"></i
+              ></span>
               <h3 data-i18n="serviceEmergencyTitle">Emergency Visit</h3>
               <p data-i18n="serviceEmergencyText">
                 Help for toothaches, broken teeth, swelling, or urgent pain.
