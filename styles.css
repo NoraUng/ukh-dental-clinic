@@ -970,7 +970,7 @@ details p {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.65fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: 34px;
 }
 

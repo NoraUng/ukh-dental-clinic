@@ -281,6 +281,15 @@ Point `SUBMIT_APPOINTMENT_URL` in your local `config.js` at
 
 ## 10. Known limitations / good next follow-ups
 
+- **No privacy policy yet.** The site collects patient name/phone/email and
+  (since the medical condition dropdown was added) optional health
+  information, with no privacy policy published anywhere. This used to be
+  flagged in a public "Important Note" footer column on the live
+  site — removed on 2026-08-31 since a raw "add X before publishing"
+  developer reminder has no business being visible to real patients — but
+  the underlying gap is real and tracked here instead. Worth writing one
+  before treating this as fully public, especially given the health-data
+  collection.
 - The staff dashboard (`staff/login.html`, `staff/dashboard.html`) is
   English-only. Requirement 9 was scoped around patient-facing messages;
   extending the same `translations` pattern to the staff pages is a

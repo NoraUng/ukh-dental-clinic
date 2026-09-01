@@ -272,12 +272,9 @@ const translations = {
     msgContactSuccess: "Your message has been sent. We'll get back to you soon.",
 
     // --- Footer ---
-    footerText: "Dental clinic website demo for Phnom Penh, Cambodia.",
+    footerText: "Gentle, professional dental care in Phnom Penh, Cambodia.",
     footerLinks: "Quick Links",
     staffLogin: "Staff Login",
-    footerImportant: "Important Note",
-    footerNote:
-      "Add the real address, phone number, email, and privacy policy before publishing.",
     rights: "All rights reserved.",
   },
   km: {
@@ -455,12 +452,9 @@ const translations = {
     msgContactSuccess: "សាររបស់អ្នកត្រូវបានផ្ញើហើយ។ យើងនឹងឆ្លើយតបទៅអ្នកឆាប់ៗនេះ។",
 
     // --- Footer ---
-    footerText: "គំរូវេបសាយគ្លីនិកធ្មេញសម្រាប់ភ្នំពេញ កម្ពុជា។",
+    footerText: "សេវាថែទាំធ្មេញដ៏ទន់ភ្លន់ និងវិជ្ជាជីវៈនៅភ្នំពេញ កម្ពុជា។",
     footerLinks: "តំណរហ័ស",
     staffLogin: "ចូលគណនីបុគ្គលិក",
-    footerImportant: "កំណត់សម្គាល់សំខាន់",
-    footerNote:
-      "បន្ថែមអាសយដ្ឋានពិត លេខទូរស័ព្ទ អ៊ីមែល និងគោលការណ៍ឯកជនភាព មុនពេលផ្សព្វផ្សាយ។",
     rights: "រក្សាសិទ្ធិគ្រប់យ៉ាង។",
   },
 };
