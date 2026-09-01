@@ -275,6 +275,7 @@ const translations = {
     footerText: "Gentle, professional dental care in Phnom Penh, Cambodia.",
     footerLinks: "Quick Links",
     staffLogin: "Staff Login",
+    privacyPolicy: "Privacy Policy",
     rights: "All rights reserved.",
   },
   km: {
@@ -455,6 +456,7 @@ const translations = {
     footerText: "សេវាថែទាំធ្មេញដ៏ទន់ភ្លន់ និងវិជ្ជាជីវៈនៅភ្នំពេញ កម្ពុជា។",
     footerLinks: "តំណរហ័ស",
     staffLogin: "ចូលគណនីបុគ្គលិក",
+    privacyPolicy: "គោលការណ៍ឯកជនភាព",
     rights: "រក្សាសិទ្ធិគ្រប់យ៉ាង។",
   },
 };

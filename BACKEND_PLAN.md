@@ -281,15 +281,22 @@ Point `SUBMIT_APPOINTMENT_URL` in your local `config.js` at
 
 ## 10. Known limitations / good next follow-ups
 
-- **No privacy policy yet.** The site collects patient name/phone/email and
-  (since the medical condition dropdown was added) optional health
-  information, with no privacy policy published anywhere. This used to be
-  flagged in a public "Important Note" footer column on the live
-  site — removed on 2026-08-31 since a raw "add X before publishing"
-  developer reminder has no business being visible to real patients — but
-  the underlying gap is real and tracked here instead. Worth writing one
-  before treating this as fully public, especially given the health-data
-  collection.
+- **Privacy policy**: published at `privacy.html`, linked from the footer,
+  2026-08-31. Accurately describes what's actually collected (including the
+  optional medical condition field), storage (Supabase/Cloudflare),
+  retention (indefinite, no deletion mechanism yet — see below), and who
+  can access it. Drafted by Claude directly from the codebase's real data
+  flows, not reviewed by a lawyer — reasonable starting point given the
+  health-data collection, but worth an actual legal review before treating
+  it as final. English-only for now; the rest of the site is bilingual, so
+  a Khmer translation is a worthwhile follow-up (deliberately skipped for
+  this first pass — legal text is exactly the kind of content where a
+  wrong translation is worse than none, more so than casual UI copy).
+- **No actual data-deletion mechanism** despite the privacy policy
+  promising one on request — "contact us" currently just routes to a
+  manual, human process (someone has to go delete the row directly in the
+  database). Fine at low volume, but if delete requests become routine,
+  build a real path for it.
 - The staff dashboard (`staff/login.html`, `staff/dashboard.html`) is
   English-only. Requirement 9 was scoped around patient-facing messages;
   extending the same `translations` pattern to the staff pages is a

@@ -905,6 +905,48 @@ textarea:focus {
 }
 
 /* ----------------------------------------------------------------------------
+  12b. LEGAL PAGES (privacy.html)
+  ---------------------------------------------------------------------------- */
+.legal-content {
+  max-width: 760px;
+}
+
+.legal-content h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin-bottom: 8px;
+}
+
+.legal-updated {
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 34px;
+}
+
+.legal-content h2 {
+  font-size: 1.4rem;
+  margin: 34px 0 12px;
+}
+
+.legal-content h3 {
+  font-size: 1.1rem;
+  margin: 20px 0 8px;
+}
+
+.legal-content p,
+.legal-content li {
+  color: var(--muted);
+}
+
+.legal-content ul {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+
+.legal-content li {
+  margin-bottom: 6px;
+}
+
+/* ----------------------------------------------------------------------------
   13. FAQ
   ---------------------------------------------------------------------------- */
 .faq-grid {
