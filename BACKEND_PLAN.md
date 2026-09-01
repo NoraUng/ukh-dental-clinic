@@ -100,7 +100,8 @@ See `supabase/migrations/0001_init_schema.sql` for the authoritative schema. Sho
 - **appointments** — one row per request. `reference_number` (patient-facing), contact fields, request details, `status`, `submission_hash` (dedup), `ip_hash` (rate limiting — hashed, never raw), `last_updated_by`.
 - **staff_profiles** — one row per staff member, keyed to `auth.users.id`. Presence of an *active* row here is what "is staff" means everywhere in the system.
 - **appointment_audit_log** — append-only, written only by a trigger (staff cannot insert into it directly), records every `status` change with who/when/old/new.
-- **rate_limit_events** — minimal `(ip_hash, created_at)` rows, no form content, pruned after 24h by `prune_rate_limit_events()`.
+- **rate_limit_events** — minimal `(ip_hash, created_at)` rows, no form content, pruned after 24h by `prune_rate_limit_events()`. Shared across both `submit-appointment` and `submit-contact` — rate limiting is per-IP, not per-form.
+- **contact_messages** — one row per "Send a Message" submission (`0005_contact_messages.sql`). `full_name`, `email`, `message`, `is_read` (toggled by staff on the dashboard), `ip_hash`. No status/audit-log equivalent — simpler than appointments since there's no workflow to track, just read/unread.
 
 ## 5. Reference number format
 
@@ -289,9 +290,16 @@ Point `SUBMIT_APPOINTMENT_URL` in your local `config.js` at
   true, switch to server-side pagination (`.range()`) and a Postgres
   full-text search using the `idx_appointments_search` GIN index already
   in place.
-- The contact form (`#contact` section) remains a front-end-only demo, as
-  it was before — only the appointment booking form was in scope for this
-  backend.
+- ~~The contact form (`#contact` section) remains a front-end-only demo~~ —
+  as of 2026-08-31 this is no longer true. The "Send a Message" form now
+  submits to the `submit-contact` Edge Function (same CORS/honeypot/
+  rate-limit/Turnstile protections as `submit-appointment`), which inserts
+  into the `contact_messages` table (`0005_contact_messages.sql`). Staff
+  view and mark-read these on the dashboard, below the appointments table.
+  There is deliberately no duplicate-submission check here (unlike
+  appointments) — resubmitting the same contact message twice isn't
+  harmful the way double-booking is, so that layer of complexity wasn't
+  worth adding.
 - Hard deletion of an appointment is intentionally not exposed anywhere in
   the app (no delete policy, no delete UI) to protect the audit trail. If
   you need it for a specific compliance reason (e.g. a formal data-deletion

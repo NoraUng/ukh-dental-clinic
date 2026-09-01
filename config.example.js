@@ -26,6 +26,11 @@ window.APP_CONFIG = {
   SUBMIT_APPOINTMENT_URL:
     "https://YOUR-DEV-PROJECT-REF.supabase.co/functions/v1/submit-appointment",
 
+  // The deployed submit-contact function URL for this environment,
+  // i.e. `${SUPABASE_URL}/functions/v1/submit-contact`.
+  SUBMIT_CONTACT_URL:
+    "https://YOUR-DEV-PROJECT-REF.supabase.co/functions/v1/submit-contact",
+
   // Cloudflare dashboard -> Turnstile -> your widget -> Site Key (public).
   TURNSTILE_SITE_KEY: "YOUR-DEV-TURNSTILE-SITE-KEY",
 };

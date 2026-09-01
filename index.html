@@ -843,31 +843,69 @@
           <form class="form-card reveal" id="contactForm" novalidate>
             <h3 data-i18n="contactFormTitle">Send a Message</h3>
 
-            <div class="form-group">
+            <div class="form-group required">
               <label for="contactName" data-i18n="labelName">Full Name</label>
-              <input type="text" id="contactName" autocomplete="name" />
+              <input
+                type="text"
+                id="contactName"
+                autocomplete="name"
+                maxlength="100"
+                required
+              />
               <small class="error-message"></small>
             </div>
 
-            <div class="form-group">
+            <div class="form-group required">
               <label for="contactEmail" data-i18n="labelEmail"
                 >Email Address</label
               >
-              <input type="email" id="contactEmail" autocomplete="email" />
+              <input
+                type="email"
+                id="contactEmail"
+                autocomplete="email"
+                maxlength="254"
+                required
+              />
               <small class="error-message"></small>
             </div>
 
-            <div class="form-group">
+            <div class="form-group required">
               <label for="contactMessage" data-i18n="labelMessage"
                 >Message</label
               >
-              <textarea id="contactMessage" rows="5"></textarea>
+              <textarea
+                id="contactMessage"
+                rows="5"
+                maxlength="1000"
+                required
+              ></textarea>
               <small class="error-message"></small>
             </div>
+
+            <!-- Honeypot field — see the booking form above for the same
+                 pattern and full explanation. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="contactWebsite">Leave this field blank</label>
+              <input
+                type="text"
+                id="contactWebsite"
+                name="contactWebsite"
+                tabindex="-1"
+                autocomplete="off"
+              />
+            </div>
+
+            <div
+              id="contactTurnstileWidget"
+              class="turnstile-widget"
+              data-testid="contact-turnstile-widget"
+            ></div>
+            <small class="error-message" id="contactTurnstileError"></small>
 
             <button
               type="submit"
               class="button primary full-width"
+              id="contactSubmitButton"
               data-i18n="sendMessageButton"
             >
               Send Message

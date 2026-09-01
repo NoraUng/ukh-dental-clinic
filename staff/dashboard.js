@@ -53,8 +53,14 @@ const statusFilter = document.getElementById("statusFilter");
 const refreshButton = document.getElementById("refreshButton");
 const dashboardSummary = document.getElementById("dashboardSummary");
 const tableBody = document.getElementById("appointmentsTableBody");
+const refreshMessagesButton = document.getElementById("refreshMessagesButton");
+const messagesSummary = document.getElementById("messagesSummary");
+const contactMessagesTableBody = document.getElementById(
+  "contactMessagesTableBody",
+);
 
 let allAppointments = [];
+let allContactMessages = [];
 let staffDisplayNames = new Map(); // user_id -> display_name
 let expandedAppointmentId = null;
 let auditCache = new Map(); // appointment_id -> audit rows
@@ -307,6 +313,94 @@ function renderAuditHistory(listElement, rows) {
     .join("");
 }
 
+async function loadContactMessages() {
+  contactMessagesTableBody.innerHTML = `<tr><td colspan="6" class="loading-state">Loading messages…</td></tr>`;
+
+  const { data, error } = await supabase
+    .from("contact_messages")
+    .select("id, full_name, email, message, is_read, created_at")
+    .order("created_at", { ascending: false })
+    .limit(MAX_ROWS);
+
+  if (error) {
+    contactMessagesTableBody.innerHTML = `<tr><td colspan="6" class="empty-state">Could not load messages: ${escapeHtml(error.message)}</td></tr>`;
+    return;
+  }
+
+  allContactMessages = data ?? [];
+  renderContactMessages();
+}
+
+function updateMessagesSummary() {
+  const unreadCount = allContactMessages.filter((message) => !message.is_read).length;
+  messagesSummary.textContent = `${allContactMessages.length} message(s), ${unreadCount} unread`;
+}
+
+function renderContactMessages() {
+  updateMessagesSummary();
+
+  if (allContactMessages.length === 0) {
+    contactMessagesTableBody.innerHTML = `<tr><td colspan="6" class="empty-state">No contact messages yet.</td></tr>`;
+    return;
+  }
+
+  contactMessagesTableBody.innerHTML = "";
+
+  allContactMessages.forEach((message) => {
+    const row = document.createElement("tr");
+    row.classList.toggle("unread", !message.is_read);
+    row.innerHTML = `
+      <td></td>
+      <td>${escapeHtml(message.full_name)}</td>
+      <td>${escapeHtml(message.email)}</td>
+      <td class="wrap">${escapeHtml(message.message)}</td>
+      <td>${escapeHtml(formatDateTime(message.created_at))}</td>
+      <td></td>
+    `;
+
+    const dotCell = row.children[0];
+    dotCell.innerHTML = message.is_read
+      ? ""
+      : '<span class="unread-dot" aria-label="Unread" title="Unread"></span>';
+
+    const actionCell = row.children[5];
+    const toggleButton = document.createElement("button");
+    toggleButton.type = "button";
+    toggleButton.className = "link-button";
+    toggleButton.textContent = message.is_read ? "Mark unread" : "Mark read";
+    toggleButton.addEventListener("click", () =>
+      toggleMessageRead(message, toggleButton, row, dotCell),
+    );
+    actionCell.appendChild(toggleButton);
+
+    contactMessagesTableBody.appendChild(row);
+  });
+}
+
+async function toggleMessageRead(message, button, row, dotCell) {
+  const nextIsRead = !message.is_read;
+  button.disabled = true;
+  const { error } = await supabase
+    .from("contact_messages")
+    .update({ is_read: nextIsRead })
+    .eq("id", message.id);
+  button.disabled = false;
+
+  if (error) {
+    console.error("Failed to update message", error.message);
+    window.alert(`Could not update message: ${error.message}`);
+    return;
+  }
+
+  message.is_read = nextIsRead;
+  button.textContent = nextIsRead ? "Mark unread" : "Mark read";
+  row.classList.toggle("unread", !nextIsRead);
+  dotCell.innerHTML = nextIsRead
+    ? ""
+    : '<span class="unread-dot" aria-label="Unread" title="Unread"></span>';
+  updateMessagesSummary();
+}
+
 let searchDebounceTimer = null;
 searchInput.addEventListener("input", () => {
   clearTimeout(searchDebounceTimer);
@@ -314,6 +408,7 @@ searchInput.addEventListener("input", () => {
 });
 statusFilter.addEventListener("change", renderTable);
 refreshButton.addEventListener("click", loadAppointments);
+refreshMessagesButton.addEventListener("click", loadContactMessages);
 
 signOutButton.addEventListener("click", async () => {
   await supabase.auth.signOut();
@@ -325,4 +420,5 @@ signOutButton.addEventListener("click", async () => {
   if (!profile) return;
   await loadStaffDirectory();
   await loadAppointments();
+  await loadContactMessages();
 })();

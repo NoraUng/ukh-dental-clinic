@@ -46,3 +46,9 @@ verify_jwt = false
 # appointment gets created in the first place), so it can't require a
 # Supabase auth JWT. Its own request validation, Turnstile check, and rate
 # limiting are what stand in for that — see submit-appointment/index.js.
+
+[functions.submit-contact]
+verify_jwt = false
+# Same reasoning as submit-appointment above — anonymous visitors use the
+# "Send a Message" contact form, so this can't require a Supabase auth JWT
+# either. See submit-contact/index.ts.

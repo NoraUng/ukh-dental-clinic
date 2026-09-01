@@ -171,6 +171,44 @@ export function validateSubmission(raw) {
   };
 }
 
+/**
+ * Validates and normalizes a raw "Send a Message" contact form submission.
+ * Same shape/contract as validateSubmission above: { ok: true, data } or
+ * { ok: false, fieldErrors }.
+ */
+export function validateContactSubmission(raw) {
+  const fieldErrors = {};
+
+  if (typeof raw !== "object" || raw === null) {
+    return { ok: false, fieldErrors: { _form: "INVALID_BODY" } };
+  }
+
+  const fullNameRaw = stripControlAndTags(String(raw.fullName ?? ""));
+  const emailRaw = stripControlAndTags(String(raw.email ?? "")).toLowerCase();
+  const messageRaw = stripControlAndTags(String(raw.message ?? ""));
+
+  if (!NAME_PATTERN.test(fullNameRaw)) {
+    fieldErrors.fullName = "INVALID_NAME";
+  }
+
+  if (!EMAIL_PATTERN.test(emailRaw) || emailRaw.length > 254) {
+    fieldErrors.email = "INVALID_EMAIL";
+  }
+
+  if (messageRaw.length < 5 || messageRaw.length > 1000) {
+    fieldErrors.message = "INVALID_MESSAGE";
+  }
+
+  if (Object.keys(fieldErrors).length > 0) {
+    return { ok: false, fieldErrors };
+  }
+
+  return {
+    ok: true,
+    data: { fullName: fullNameRaw, email: emailRaw, message: messageRaw },
+  };
+}
+
 // A hidden form field (see index.html's honeypot input) that a human never
 // fills in but a naive bot script often does. Any non-empty value here
 // means the submission is treated as spam without revealing why.

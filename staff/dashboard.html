@@ -23,6 +23,7 @@
       </header>
 
       <main class="dashboard-main">
+        <h2 class="dashboard-section-title">Appointments</h2>
         <div class="dashboard-toolbar">
           <div class="dashboard-filters">
             <input
@@ -63,6 +64,36 @@
             <tbody id="appointmentsTableBody">
               <tr>
                 <td colspan="9" class="loading-state">Loading appointments…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="dashboard-section-title" id="contactMessagesTitle">
+          Contact Messages
+        </h2>
+        <div class="dashboard-toolbar">
+          <button type="button" class="button secondary" id="refreshMessagesButton">
+            Refresh
+          </button>
+          <p class="dashboard-summary" id="messagesSummary"></p>
+        </div>
+
+        <div class="table-scroll">
+          <table class="appointments-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Received</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="contactMessagesTableBody">
+              <tr>
+                <td colspan="6" class="loading-state">Loading messages…</td>
               </tr>
             </tbody>
           </table>

@@ -79,6 +79,27 @@
   padding: 28px;
 }
 
+.dashboard-section-title {
+  font-size: 1.3rem;
+  margin: 32px 0 16px;
+}
+
+.dashboard-section-title:first-child {
+  margin-top: 0;
+}
+
+.appointments-table tr.unread td {
+  font-weight: 800;
+}
+
+.unread-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
 .dashboard-toolbar {
   display: flex;
   flex-wrap: wrap;

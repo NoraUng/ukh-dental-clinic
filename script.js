@@ -55,6 +55,8 @@ const appointmentSubmitButton = document.getElementById(
 const turnstileError = document.getElementById("turnstileError");
 const contactForm = document.getElementById("contactForm");
 const contactAlert = document.getElementById("contactAlert");
+const contactTurnstileError = document.getElementById("contactTurnstileError");
+const contactSubmitButton = document.getElementById("contactSubmitButton");
 const backToTopButton = document.getElementById("backToTop");
 const testimonialText = document.getElementById("testimonialText");
 const testimonialService = document.getElementById("testimonialService");
@@ -266,6 +268,8 @@ const translations = {
     directionsButton: "Get Directions",
     contactFormTitle: "Send a Message",
     sendMessageButton: "Send Message",
+    fieldErrorContactMessage: "Please enter your message.",
+    msgContactSuccess: "Your message has been sent. We'll get back to you soon.",
 
     // --- Footer ---
     footerText: "Dental clinic website demo for Phnom Penh, Cambodia.",
@@ -447,6 +451,8 @@ const translations = {
     directionsButton: "បើកផែនទី",
     contactFormTitle: "ផ្ញើសារ",
     sendMessageButton: "ផ្ញើសារ",
+    fieldErrorContactMessage: "សូមបញ្ចូលសាររបស់អ្នក។",
+    msgContactSuccess: "សាររបស់អ្នកត្រូវបានផ្ញើហើយ។ យើងនឹងឆ្លើយតបទៅអ្នកឆាប់ៗនេះ។",
 
     // --- Footer ---
     footerText: "គំរូវេបសាយគ្លីនិកធ្មេញសម្រាប់ភ្នំពេញ កម្ពុជា។",
@@ -497,7 +503,8 @@ function applyLanguage(language) {
   });
 
   updateTimeGroupLabels();
-  renderTurnstileWidget(previousLanguage !== language);
+  renderTurnstileWidget("appointment", previousLanguage !== language);
+  renderTurnstileWidget("contact", previousLanguage !== language);
 }
 
 languageButton.addEventListener("click", () => {
@@ -625,59 +632,75 @@ function isValidEmail(email) {
   ----------------------------------------------------------------------------
   window.onTurnstileLoad is the callback named in index.html's script tag
   (`?onload=onTurnstileLoad&render=explicit`). Turnstile calls it once its
-  own script has loaded; we render the widget ourselves so we control
-  exactly when and with which language/site key.
+  own script has loaded; we render the widgets ourselves so we control
+  exactly when and with which language/site key. There are two independent
+  widgets now (booking form + contact form), tracked by name below.
   ============================================================================ */
 
-let turnstileWidgetId = null;
-
-window.onTurnstileLoad = function onTurnstileLoad() {
-  renderTurnstileWidget(false);
+const turnstileWidgets = {
+  appointment: {
+    widgetId: null,
+    containerId: "turnstileWidget",
+    errorElement: turnstileError,
+  },
+  contact: {
+    widgetId: null,
+    containerId: "contactTurnstileWidget",
+    errorElement: contactTurnstileError,
+  },
 };
 
-function renderTurnstileWidget(languageChanged) {
+window.onTurnstileLoad = function onTurnstileLoad() {
+  renderTurnstileWidget("appointment", false);
+  renderTurnstileWidget("contact", false);
+};
+
+function renderTurnstileWidget(key, languageChanged) {
   if (!window.turnstile || !APP_CONFIG.TURNSTILE_SITE_KEY) return;
-  const container = document.getElementById("turnstileWidget");
+  const widget = turnstileWidgets[key];
+  const container = document.getElementById(widget.containerId);
   if (!container) return;
 
-  if (turnstileWidgetId !== null && languageChanged) {
-    window.turnstile.remove(turnstileWidgetId);
-    turnstileWidgetId = null;
+  if (widget.widgetId !== null && languageChanged) {
+    window.turnstile.remove(widget.widgetId);
+    widget.widgetId = null;
     container.innerHTML = "";
   }
 
-  if (turnstileWidgetId !== null) return;
+  if (widget.widgetId !== null) return;
 
-  turnstileWidgetId = window.turnstile.render(container, {
+  widget.widgetId = window.turnstile.render(container, {
     sitekey: APP_CONFIG.TURNSTILE_SITE_KEY,
     theme: "light",
     language: currentLanguage === "km" ? "km" : "en",
     callback: () => {
-      if (turnstileError) turnstileError.textContent = "";
+      if (widget.errorElement) widget.errorElement.textContent = "";
     },
     "expired-callback": () => {
-      if (turnstileError) {
-        turnstileError.textContent =
+      if (widget.errorElement) {
+        widget.errorElement.textContent =
           translations[currentLanguage].msgTurnstileRequired;
       }
     },
     "error-callback": () => {
-      if (turnstileError) {
-        turnstileError.textContent =
+      if (widget.errorElement) {
+        widget.errorElement.textContent =
           translations[currentLanguage].msgSpamDetected;
       }
     },
   });
 }
 
-function getTurnstileToken() {
-  if (!window.turnstile || turnstileWidgetId === null) return "";
-  return window.turnstile.getResponse(turnstileWidgetId) || "";
+function getTurnstileToken(key) {
+  const widget = turnstileWidgets[key];
+  if (!window.turnstile || widget.widgetId === null) return "";
+  return window.turnstile.getResponse(widget.widgetId) || "";
 }
 
-function resetTurnstile() {
-  if (window.turnstile && turnstileWidgetId !== null) {
-    window.turnstile.reset(turnstileWidgetId);
+function resetTurnstile(key) {
+  const widget = turnstileWidgets[key];
+  if (window.turnstile && widget.widgetId !== null) {
+    window.turnstile.reset(widget.widgetId);
   }
 }
 
@@ -721,6 +744,7 @@ const FIELD_ERROR_CODE_TO_KEY = {
   INVALID_NAME: "fieldErrorInvalidName",
   INVALID_PHONE: "fieldErrorInvalidPhone",
   INVALID_EMAIL: "fieldErrorInvalidEmail",
+  INVALID_MESSAGE: "fieldErrorContactMessage",
   INVALID_PATIENT_TYPE: "fieldErrorInvalidPatientType",
   INVALID_SERVICE: "fieldErrorInvalidService",
   INVALID_DOCTOR: "fieldErrorInvalidDoctor",
@@ -886,7 +910,7 @@ async function handleAppointmentSubmit(event) {
     return;
   }
 
-  const turnstileToken = getTurnstileToken();
+  const turnstileToken = getTurnstileToken("appointment");
   if (!turnstileToken) {
     if (turnstileError) turnstileError.textContent = t.msgTurnstileRequired;
     return;
@@ -925,13 +949,13 @@ async function handleAppointmentSubmit(event) {
     result = await response.json().catch(() => ({}));
   } catch (networkError) {
     setAppointmentSubmitting(false);
-    resetTurnstile();
+    resetTurnstile("appointment");
     showAppointmentAlert("error-alert", t.msgNetworkError);
     return;
   }
 
   setAppointmentSubmitting(false);
-  resetTurnstile();
+  resetTurnstile("appointment");
 
   switch (result.code) {
     case "SUCCESS": {
@@ -982,13 +1006,22 @@ async function handleAppointmentSubmit(event) {
 /* ============================================================================
   CONTACT FORM
   ----------------------------------------------------------------------------
-  Unchanged: this remains a front-end-only demo (no backend requirement
-  was requested for it). It does not send data anywhere.
+  Sends to the submit-contact Edge Function (same shape as the appointment
+  booking flow above: Turnstile + honeypot + rate limiting server-side,
+  never trusting the client-side checks below on their own). Messages land
+  in the contact_messages table and are visible to staff on the dashboard.
   ============================================================================ */
 
-function handleContactSubmit(event) {
-  event.preventDefault();
+function setContactSubmitting(isSubmitting) {
+  const t = translations[currentLanguage];
+  contactSubmitButton.disabled = isSubmitting;
+  contactSubmitButton.textContent = isSubmitting
+    ? t.submittingAppointment
+    : t.sendMessageButton;
+}
 
+function validateContactFormClientSide() {
+  const t = translations[currentLanguage];
   const contactName = document.getElementById("contactName");
   const contactEmail = document.getElementById("contactEmail");
   const contactMessage = document.getElementById("contactMessage");
@@ -997,30 +1030,114 @@ function handleContactSubmit(event) {
   let isValid = true;
 
   if (contactName.value.trim().length < 2) {
-    setError(contactName, "Please enter your name.");
+    setError(contactName, t.fieldErrorInvalidName);
     isValid = false;
   }
 
   if (!isValidEmail(contactEmail.value.trim())) {
-    setError(contactEmail, "Please enter a valid email address.");
+    setError(contactEmail, t.fieldErrorInvalidEmail);
     isValid = false;
   }
 
   if (contactMessage.value.trim().length < 5) {
-    setError(contactMessage, "Please enter your message.");
+    setError(contactMessage, t.fieldErrorContactMessage);
     isValid = false;
   }
 
-  if (!isValid) {
+  return isValid;
+}
+
+const CONTACT_FIELD_TO_ELEMENT_ID = {
+  fullName: "contactName",
+  email: "contactEmail",
+  message: "contactMessage",
+};
+
+async function handleContactSubmit(event) {
+  event.preventDefault();
+  const t = translations[currentLanguage];
+
+  if (!validateContactFormClientSide()) {
     contactAlert.className = "alert error-alert";
-    contactAlert.textContent = "Please fix the form errors.";
+    contactAlert.textContent = t.msgValidationError;
     return;
   }
 
-  contactAlert.className = "alert success";
-  contactAlert.textContent =
-    "Message submitted successfully. This is a demo form, so no email was sent.";
-  contactForm.reset();
+  const turnstileToken = getTurnstileToken("contact");
+  if (!turnstileToken) {
+    if (contactTurnstileError) {
+      contactTurnstileError.textContent = t.msgTurnstileRequired;
+    }
+    return;
+  }
+  if (contactTurnstileError) contactTurnstileError.textContent = "";
+
+  const payload = {
+    fullName: document.getElementById("contactName").value.trim(),
+    email: document.getElementById("contactEmail").value.trim(),
+    message: document.getElementById("contactMessage").value.trim(),
+    turnstileToken,
+    // Honeypot — a real visitor never fills this in. See index.html.
+    website: document.getElementById("contactWebsite").value,
+  };
+
+  setContactSubmitting(true);
+  contactAlert.className = "alert";
+  contactAlert.textContent = "";
+
+  let response;
+  let result;
+  try {
+    response = await fetch(APP_CONFIG.SUBMIT_CONTACT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    result = await response.json().catch(() => ({}));
+  } catch (networkError) {
+    setContactSubmitting(false);
+    resetTurnstile("contact");
+    contactAlert.className = "alert error-alert";
+    contactAlert.textContent = t.msgNetworkError;
+    return;
+  }
+
+  setContactSubmitting(false);
+  resetTurnstile("contact");
+
+  switch (result.code) {
+    case "SUCCESS":
+      contactAlert.className = "alert success";
+      contactAlert.textContent = t.msgContactSuccess;
+      contactForm.reset();
+      Object.values(CONTACT_FIELD_TO_ELEMENT_ID).forEach((id) =>
+        clearError(document.getElementById(id)),
+      );
+      break;
+    case "VALIDATION_ERROR": {
+      const fieldErrors = result.fieldErrors || {};
+      Object.entries(fieldErrors).forEach(([field, errorCode]) => {
+        const elementId = CONTACT_FIELD_TO_ELEMENT_ID[field];
+        const element = elementId ? document.getElementById(elementId) : null;
+        const messageKey = FIELD_ERROR_CODE_TO_KEY[errorCode];
+        setError(element, messageKey ? t[messageKey] : t.msgValidationError);
+      });
+      contactAlert.className = "alert error-alert";
+      contactAlert.textContent = t.msgValidationError;
+      break;
+    }
+    case "SPAM_DETECTED":
+      contactAlert.className = "alert error-alert";
+      contactAlert.textContent = t.msgSpamDetected;
+      break;
+    case "RATE_LIMITED":
+      contactAlert.className = "alert error-alert";
+      contactAlert.textContent = t.msgRateLimited;
+      break;
+    default:
+      contactAlert.className = "alert error-alert";
+      contactAlert.textContent = t.msgServerError;
+  }
 }
 
 function renderTestimonial() {
